@@ -1,18 +1,18 @@
 # Nome do projeto
 
-Escreva um ou dois  parágrafo resumindo o objetivo do seu projeto.
+O presente trabalho tem como objetivo apresentar um sistema que realizará um cadastro de barbearias e de usuários, em que o usuário pode escolher uma determinada barbearia cadastrada e agendar um horário disponível para utilizar os trabalhos oferecidos pela barbearia, assim as barbearias terão melhor controle e influência de clientes e o cliente terá um maior conforto e facilidade para agendar seu horário. 
 
 ## Alunos integrantes da equipe
 
-* Nome completo do aluno 1
-* Nome completo do aluno 2
-* Nome completo do aluno 3
-* Nome completo do aluno 4
+* Giovana Fioreze Calixto
+* Gabriel Viana Apolinário
+* João Victor Ribeiro de Castro
+* Thiago Pinheiro Frois
 
 ## Professores responsáveis
 
-* Nome completo do professor 1
-* Nome completo do professor 2
+* Marco Paulo Soares Gomes
+* Joyce Christina de Paiva Carvalho
 
 ## Instruções de utilização
 
