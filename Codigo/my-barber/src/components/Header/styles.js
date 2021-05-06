@@ -12,6 +12,9 @@ export const Container = styled.header`
 
   background-color: black;
   opacity: 75%;
+  .menu{
+    visibility: collapse;
+  }
 
   border-bottom: solid 3px #FF9000;
 `;
@@ -19,7 +22,7 @@ export const Container = styled.header`
 export const BarraPesquisa = styled.form`
 
   position: relative;
-  right: 10%;
+  right: 5%;
 
   display: flex;
   align-items: center;

@@ -15,7 +15,7 @@ function Header() {
         <input placeholder="Busque uma barbearia na sua cidade..." />
         <img src={lupa} alt="" />
       </BarraPesquisa>
-      <img src={lupa} alt="" />
+      <img className={"menu"} src={lupa} alt="" />
     </Container>
   )
 }
