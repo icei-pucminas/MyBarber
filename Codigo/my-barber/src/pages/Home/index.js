@@ -1,20 +1,30 @@
 import React from 'react'
-import {HomeContainer, ImagemFundo, Titulo} from "./styles";
-import Header from "../../components/Header";
 
-function Home(){
+import { HomeContainer, MainContainer, ImagemFundo } from "./styles";
+import barbeiro from '../../assets/barbeiro.svg';
+
+import Header from "../../components/Header";
+import Button from "../../components/Button";
+
+function Home() {
    return (
-        <React.Fragment>
-            <ImagemFundo>
-               <Header />
-               <Titulo>
-                   <h2>Agende seu horário de<br/> maneira prática e rápida</h2>
-               </Titulo>
-            </ImagemFundo>
-            <HomeContainer>
+      <>
+         <ImagemFundo />
+         <Header />
+         <MainContainer>
+            <h1>
+               Agende seu horário de maneira prática e rápida!
+            </h1>
+         </MainContainer>
+         <HomeContainer>
+            <section>
                <p>Procure as melhores barbearias da sua região facilmente com o MyBarber.</p>
-           </HomeContainer>
-        </React.Fragment>
+               <Button>Entrar</Button>
+               <Button>Cadastre-se</Button>
+            </section>
+            <img src={barbeiro} alt="Cliente na Barbearia" />
+         </HomeContainer>
+      </>
    )
 }
 

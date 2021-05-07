@@ -10,8 +10,8 @@ export const Container = styled.header`
   align-items: center;
   justify-content: space-around;
 
-  background-color: black;
-  opacity: 75%;
+  background-color: rgba(0,0,0, 0.75);
+  
   .menu{
     visibility: collapse;
   }
@@ -20,7 +20,6 @@ export const Container = styled.header`
 `;
 
 export const BarraPesquisa = styled.form`
-
   position: relative;
   right: 5%;
 
@@ -35,6 +34,8 @@ export const BarraPesquisa = styled.form`
   padding: 14px;
 
   background-color: #FF9000; 
+
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   
   img {
     width: 32px;
@@ -52,6 +53,5 @@ export const BarraPesquisa = styled.form`
       color: white;
     }
   }
-
 `;
 
