@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import imgPrincipal from '../../assets/imgPrincipal.jfif'
 
 
 export const HomeContainer = styled.div`
@@ -11,7 +12,6 @@ export const HomeContainer = styled.div`
 `
 
 export const Titulo = styled.div`
-    background-color: black;
     height: 521px;
     display: flex;
     width: 100%;
@@ -26,5 +26,5 @@ export const Titulo = styled.div`
     }
 `
 export const ImagemFundo = styled.div`
-    
+    background-image: url(${imgPrincipal});
 `
