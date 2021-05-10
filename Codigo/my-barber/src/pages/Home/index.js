@@ -1,6 +1,8 @@
 import React from 'react'
 
 import { HomeContainer, MainContainer, ImagemFundo } from "./styles";
+import GlobalStyle from '../../styles/global';
+
 import barbeiro from '../../assets/barbeiro.svg';
 
 import Header from "../../components/Header";
@@ -9,6 +11,7 @@ import Button from "../../components/Button";
 function Home() {
    return (
       <>
+         <GlobalStyle homePage />
          <ImagemFundo />
          <Header />
          <MainContainer>
