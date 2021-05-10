@@ -1,13 +1,14 @@
-import Header from './components/Header';
-import Home from './pages/Home'
-import Login from './pages/Login'
+import React from 'react';
 
-function App() {
-  return (
-    <>
-      <Home />
-    </>
-  );
-}
+import { BrowserRouter } from 'react-router-dom';
+import Routes from './routes';
+
+const App = () => (
+  <>
+    <BrowserRouter>
+      <Routes />
+    </BrowserRouter>
+  </>
+);
 
 export default App;

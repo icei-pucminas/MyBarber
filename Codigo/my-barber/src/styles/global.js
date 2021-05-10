@@ -2,6 +2,8 @@ import { createGlobalStyle } from 'styled-components';
 
 import pattern from '../assets/pattern.png';
 
+// Aqui fica todos os estilos que serão aplicados globalmente
+
 export default createGlobalStyle`
   * {
      margin: 0;
