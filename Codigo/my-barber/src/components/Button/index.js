@@ -4,7 +4,7 @@ import { Container } from './styles';
 
 function Button({ children }) {
   return (
-    <Container>
+    <Container onClick={() => alert('EM CRIAÇÃO')}>
       {children}
     </Container>
   )
