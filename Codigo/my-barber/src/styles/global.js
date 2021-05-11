@@ -29,7 +29,7 @@ export default createGlobalStyle`
 
   body {
     -webkit-font-smoothing: antialiased;
-    background-color: ${({ homePage }) => homePage ? 'red' : '#49474F'};
+    background-color: ${({ homePage }) => homePage ? 'black' : '#49474F'};
 
     // IMAGEM DE FUNDO DAS PÁGINAS
     &::after {
