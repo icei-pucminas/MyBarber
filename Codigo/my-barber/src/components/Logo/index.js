@@ -6,7 +6,7 @@ import Container from './styles';
 const Logo = () => (
   <Container>
     <img src={bigode} alt="" />
-    <h1>MyBarber</h1>
+    <h6>MyBarber</h6>
   </Container>
 )
 

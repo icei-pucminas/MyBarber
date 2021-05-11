@@ -16,6 +16,9 @@ export default createGlobalStyle`
     vertical-align: baseline;
     font-family:'Roboto Slab', serif;
   }
+  a {
+    text-decoration: none;
+  }
   ol, ul {
     list-style: none;
   }
@@ -44,7 +47,7 @@ export default createGlobalStyle`
       right: 0;
       position: absolute;
       z-index: -999;
-      opacity: 0.05;
+      opacity: 0.02;
     }
   }
 `;
