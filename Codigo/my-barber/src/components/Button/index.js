@@ -2,9 +2,9 @@ import React from 'react';
 
 import { Container } from './styles';
 
-function Button({ children }) {
+function Button({ children, pequeno, ...rest }) {
   return (
-    <Container onClick={() => alert('EM CRIAÇÃO')}>
+    <Container tamanho={pequeno} type="button" {...rest}>
       {children}
     </Container>
   )

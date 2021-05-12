@@ -22,8 +22,8 @@ function Home() {
          <HomeContainer>
             <section>
                <p>Procure as melhores barbearias da sua região facilmente com o MyBarber.</p>
-               <Button>Entrar</Button>
-               <Button>Cadastre-se</Button>
+               <Button pequeno>Entrar</Button>
+               <Button pequeno>Cadastre-se</Button>
             </section>
             <img src={barbeiro} alt="Cliente na Barbearia" />
          </HomeContainer>

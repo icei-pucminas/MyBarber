@@ -8,7 +8,7 @@ export default styled.div`
   img {
     width: 57px;
   }
-  h1 {
+  h6 {
     font-size: 48px;
     color: white;
     margin: 0 15px;
