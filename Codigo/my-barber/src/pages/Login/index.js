@@ -14,6 +14,8 @@ import Switch from 'react-input-switch';
 const Login = () => {
 
   const [tipoCliente, setTipoCliente] = useState(0);
+  const [email, setEmail] = useState("");
+  const [senha, setSenha] = useState("");
 
   return (
     <Container>
@@ -22,8 +24,8 @@ const Login = () => {
       <h1>Entrar</h1>
 
       <form>
-        <Input nome="E-mail" Icone={FiMail} />
-        <Input nome="Senha" Icone={FiLock} />
+        <Input placeholder="E-mail" Icone={FiMail} value={email} onChange={e => setEmail(e.target.value)} type="email" />
+        <Input placeholder="Senha" Icone={FiLock} value={senha} onChange={e => setSenha(e.target.value)} type="password" />
 
         <div className="tipo">
           <label htmlFor="tipo-cliente">Cliente</label>
