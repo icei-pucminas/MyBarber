@@ -16,6 +16,10 @@ export const Container = styled.div`
     margin-top: 8px;
   }
 
+  &:last-of-type {
+    margin-bottom: 8px;
+  }
+
   input {
     background: transparent;
     border: 0;

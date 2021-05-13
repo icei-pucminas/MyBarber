@@ -2,9 +2,9 @@ import React from 'react';
 
 import { Container } from './styles';
 
-const Input = ({ nome, Icone }) => (
+const Input = ({ nome, Icone, ...rest }) => (
   <Container>
-    <input type="text" placeholder={nome} />
+    <input type="text" {...rest} />
     <Icone color="#666360" size={20} />
   </Container>
 );
