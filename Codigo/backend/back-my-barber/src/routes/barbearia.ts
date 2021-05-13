@@ -20,7 +20,11 @@ routerBarbearia.post('/', async (req, res) => {
     || estado == null || estado == ""|| cnpj == null || cnpj == ""|| telefoneFixo == null || telefoneFixo == ""){
         res.status(500).json({mensagem:'Error, Dados Incompletos'})
    }else{
-         /* 
+      const barbeariaValidaEmail = await barbeariaCtrl.findByEmail(email);
+        if(barbeariaValidaEmail){
+            res.status(500).json({mensagem:'Email já cadastrado'})
+        }else{
+            /* 
             Armazenando senha HASH
          */
             const salt = await bcrypt.genSalt(10);
@@ -29,8 +33,28 @@ routerBarbearia.post('/', async (req, res) => {
             const barbearia = new Barbearia(nome, email, senhaHash, telefone, cep, logradouro, bairro, cidade, numero, estado, cnpj, telefoneFixo);
             const barbeariaSalva = await barbeariaCtrl.save(barbearia);
             res.json(barbeariaSalva);
-
+        }
    }
+
+   /* 
+        LOGIN
+        */
+        routerBarbearia.post('/auth', async (req, res) => {
+         const { email, senha } = req.body;
+         const barbearia = await barbeariaCtrl.findByEmail(email);
+         if(!barbearia){
+             return res.status(404);
+         }
+         const senhaValida = await bcrypt.compare(senha, barbearia.senha);
+         if(!senhaValida){
+             return res.status(404);
+         }
+
+         return res.json({mensagem:'Login Completo'})
+         /* 
+         Falta gerar token 
+          */
+     })
 })
 
 
