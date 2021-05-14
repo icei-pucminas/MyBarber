@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
+import api from '../../services/api';
 
 import GlobalStyle from '../../styles/global';
 import { Container } from './styles';
@@ -6,16 +7,22 @@ import { Container } from './styles';
 import Header from '../../components/Header';
 import Input from '../../components/Input';
 import Button from '../../components/Button';
+import Seletor from '../../components/Seletor';
 
 import { FiMail, FiLock } from 'react-icons/fi';
-import Switch from 'react-input-switch';
-
 
 const Login = () => {
 
   const [tipoCliente, setTipoCliente] = useState(0);
-  const [email, setEmail] = useState("");
-  const [senha, setSenha] = useState("");
+
+  const handleLogin = useCallback(async (e) => {
+    e.preventDefault();
+    const data = new FormData(e.target);
+    data.append("tipo", tipoCliente);
+
+    const response = await api.post('/barbearia/auth', data);
+    console.log(response.data)
+  }, [tipoCliente]);
 
   return (
     <Container>
@@ -23,35 +30,15 @@ const Login = () => {
       <Header />
       <h1>Entrar</h1>
 
-      <form>
-        <Input placeholder="E-mail" Icone={FiMail} value={email} onChange={e => setEmail(e.target.value)} type="email" />
-        <Input placeholder="Senha" Icone={FiLock} value={senha} onChange={e => setSenha(e.target.value)} type="password" />
-
-        <div className="tipo">
-          <label htmlFor="tipo-cliente">Cliente</label>
-          <Switch value={tipoCliente} onChange={setTipoCliente} className="switch" styles={{
-            track: {
-              backgroundColor: '#232129'
-            },
-            trackChecked: {
-              backgroundColor: '#232129'
-            },
-            button: {
-              backgroundColor: '#FF9000'
-            },
-            buttonChecked: {
-              backgroundColor: '#FF9000'
-            }
-          }}
-          />
-          <label htmlFor="tipo-cliente">Barbearia</label>
-        </div>
-
+      <form onSubmit={handleLogin}>
+        <Input name="email" placeholder="E-mail" Icone={FiMail} type="email" required />
+        <Input name="password" placeholder="Senha" Icone={FiLock} type="password" required />
+        <Seletor value={tipoCliente} onChange={setTipoCliente} />
         <Button type="submit">Continuar</Button>
       </form>
 
       <a href="/">Esqueci minha senha</a>
-      <a href="/">Ainda não possui conta? Cadastre-se</a>
+      <a href="/cadastro">Ainda não possui conta? Cadastre-se</a>
     </Container>
   )
 }

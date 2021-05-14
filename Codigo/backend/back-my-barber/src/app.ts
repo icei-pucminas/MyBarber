@@ -3,7 +3,7 @@ import * as bodyParser from 'body-parser';
 import * as cors from 'cors';
 import * as logger from 'morgan';
 
-import {conectarServidorNoBD} from './config/db';
+import { conectarServidorNoBD } from './config/db';
 import { routerCliente } from './routes/cliente';
 import { routerBarbearia } from './routes/barbearia';
 
@@ -36,6 +36,5 @@ conectarServidorNoBD();
 
  */
 
-    app.use('/cliente', routerCliente);
-    app.use('/barbearia', routerBarbearia);
-    app.use('/', (req, res) => res.send('API do app my-barber'));
+app.use('/cliente', routerCliente);
+app.use('/barbearia', routerBarbearia);
