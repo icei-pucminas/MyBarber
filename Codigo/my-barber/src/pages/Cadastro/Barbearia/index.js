@@ -15,26 +15,26 @@ const CadastroBarbearia = () => {
 
     const history = useHistory();
 
-    const dadosAnteriores = history.location.state;
+    const dados = history.location.state;
     // Previne que o usuário acesse a rota sem ter passado pela outra etapa
-    if (!dadosAnteriores) history.push("/cadastro");
+    if (!dados) history.push("/cadastro");
 
     const handleRegister = useCallback(async (e) => {
         e.preventDefault();
         const data = new FormData(e.target);
 
-        for (var key in dadosAnteriores) {
-            data.append(key, dadosAnteriores[key])
-        }
-
         for (var pair of data.entries()) {
-            dadosAnteriores[pair[0]] = pair[1];
-            console.log(pair[0] + ', ' + pair[1]);
+            // Adiciona os dados do formulário com os dados antigos
+            dados[pair[0]] = pair[1];
         }
 
-        const response = await api.post('/barbearia', dadosAnteriores);
-        console.log(response.data);
-    }, [dadosAnteriores]);
+        try {
+            await api.post('/barbearia', dados);
+            alert("Cadastro realizado!");
+        } catch (error) {
+            error.response && alert(error.response.data.mensagem);
+        }
+    }, [dados]);
 
     return (
         <Container>

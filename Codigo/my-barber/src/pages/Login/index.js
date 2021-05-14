@@ -20,8 +20,12 @@ const Login = () => {
     const data = new FormData(e.target);
     data.append("tipo", tipoCliente);
 
-    const response = await api.post('/barbearia/auth', data);
-    console.log(response.data)
+    try {
+      tipoCliente === 0 ? await api.post('/cliente/auth', data) : await api.post('/barbearia/auth', data)
+      alert("Logado!");
+    } catch (error) {
+      error.response && alert(error.response.data.mensagem);
+    }
   }, [tipoCliente]);
 
   return (

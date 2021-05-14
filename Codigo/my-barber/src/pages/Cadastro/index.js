@@ -1,5 +1,6 @@
 import React, { useState, useCallback } from 'react';
 import { useHistory } from 'react-router-dom';
+import api from '../../services/api';
 
 import GlobalStyle from '../../styles/global';
 import { Container } from './styles';
@@ -15,21 +16,30 @@ const CadastroGeral = () => {
     const history = useHistory();
     const [tipoCliente, setTipoCliente] = useState(0);
 
+    const cadastrar = useCallback(async (dados) => {
+        try {
+            await api.post('/cliente', dados);
+            alert("Cadastro realizado!");
+        } catch (error) {
+            error.response && alert(error.response.data.mensagem);
+        }
+    }, []);
+
     const handleRegister = useCallback((e) => {
         e.preventDefault();
         const data = new FormData(e.target);
-        data.append("tipo", tipoCliente);
 
         const dados = {
             nome: data.get("nome"),
             email: data.get("email"),
             telefone: data.get("telefone"),
             senha: data.get("senha"),
-            tipo: tipoCliente
         }
 
-        tipoCliente === 0 ? alert('Cadastrado!') : history.push('/cadastro/barbearia', dados)
-    }, [history, tipoCliente]);
+        tipoCliente === 0 ? cadastrar(dados) : history.push('/cadastro/barbearia', dados)
+    }, [cadastrar, history, tipoCliente]);
+
+
 
 
     return (
