@@ -23,13 +23,24 @@ const Login = () => {
       senha: data.get("password")
     }
 
-    try {
-      await api.post('/barbearia/auth', dados)
-      alert("Logado!");
-    } catch (error) {
-      error.response && alert("E-mail/Senha incorretos!");
+    if (tipoCliente === 0) {
+      try {
+        await api.post('/cliente/auth', dados)
+        alert("Logado!");
+      } catch (error) {
+        error.response && alert("E-mail/Senha incorretos!");
+      }
+    } else {
+      try {
+        await api.post('/barbearia/auth', dados)
+        alert("Logado!");
+      } catch (error) {
+        error.response && alert("E-mail/Senha incorretos!");
+      }
     }
-  }, []);
+
+
+  }, [tipoCliente]);
 
   return (
     <Container>
