@@ -18,15 +18,18 @@ const Login = () => {
   const handleLogin = useCallback(async (e) => {
     e.preventDefault();
     const data = new FormData(e.target);
-    data.append("tipo", tipoCliente);
+    const dados = {
+      email: data.get("email"),
+      senha: data.get("password")
+    }
 
     try {
-      tipoCliente === 0 ? await api.post('/cliente/auth', data) : await api.post('/barbearia/auth', data)
+      await api.post('/barbearia/auth', dados)
       alert("Logado!");
     } catch (error) {
-      error.response && alert(error.response.data.mensagem);
+      error.response && alert("E-mail/Senha incorretos!");
     }
-  }, [tipoCliente]);
+  }, []);
 
   return (
     <Container>
