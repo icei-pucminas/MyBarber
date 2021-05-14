@@ -36,10 +36,12 @@ routerBarbearia.post('/', async (req, res) => {
         }
     }
 
-    /* 
-         LOGIN
-         */
-    routerBarbearia.post('/auth', async (req, res) => {
+   
+});
+/* 
+        LOGIN
+        */
+        routerBarbearia.post('/auth', async (req, res) => {
         const { email, senha } = req.body;
         const barbearia = await barbeariaCtrl.findByEmail(email);
         if (!barbearia) {
@@ -55,8 +57,7 @@ routerBarbearia.post('/', async (req, res) => {
         return res.json({ mensagem: 'Login Completo' })
         /* 
         Falta gerar token 
-         */
-    })
-})
+            */
+    });
 
 

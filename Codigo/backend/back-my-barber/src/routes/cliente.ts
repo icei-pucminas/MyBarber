@@ -37,24 +37,24 @@ routerCliente.post('/', async (req, res) => {
     }
 
 
-    /* 
-        LOGIN
-        */
-    routerCliente.post('/auth', async (req, res) => {
-        const { email, senha } = req.body;
-        const cliente = await clienteCtrl.findByEmail(email);
-        if(!cliente){
-            return res.status(404);
-        }
-        const senhaValida = await bcrypt.compare(senha, cliente.senha);
-        if(!senhaValida){
-            return res.status(404);
-        }
-
-        return res.json({mensagem:'Login Completo'})
-        /* 
-        Falta gerar token 
-         */
-    })
+   
 });
-  
+/* 
+LOGIN
+*/
+routerCliente.post('/auth', async (req, res) => {
+    const { email, senha } = req.body;
+    const cliente = await clienteCtrl.findByEmail(email);
+    if(!cliente){
+        return res.status(404);
+    }
+    const senhaValida = await bcrypt.compare(senha, cliente.senha);
+    if(!senhaValida){
+        return res.status(404);
+    }
+
+    return res.json({mensagem:'Login Completo'})
+    /* 
+    Falta gerar token 
+        */
+});
