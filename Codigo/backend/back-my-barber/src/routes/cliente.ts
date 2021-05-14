@@ -8,24 +8,24 @@ export const routerCliente = Router();
 const clienteCtrl = new ClienteController();
 /* 
     Create Cliente
- */ 
+ */
 routerCliente.post('/', async (req, res) => {
-    const {nome, email, senha, telefone} = req.body;
+    const { nome, email, senha, telefone } = req.body;
 
     /* Realizar validaçoes de os dados chegaram corretamente */
-    if(nome ==null || nome ==""|| email == null || email == ""|| senha == "" || senha == null || telefone == null || telefone == ""){
-         res.status(500).json({mensagem:'Error, Dados Incompletos'})
-    }else{
+    if (nome == null || nome == "" || email == null || email == "" || senha == "" || senha == null || telefone == null || telefone == "") {
+        res.status(500).json({ mensagem: 'Error, Dados Incompletos' })
+    } else {
         const clienteEmailValida = await clienteCtrl.findByEmail(email);
-        if(clienteEmailValida){
-            res.status(500).json({mensagem:'Email já cadastrado'})
-        }else{
+        if (clienteEmailValida) {
+            res.status(500).json({ mensagem: 'Email já cadastrado' })
+        } else {
             /* 
                 Armazenando senha HASH
             */
             const salt = await bcrypt.genSalt(10);
             const senhaHash = await bcrypt.hash(senha, salt);
-            
+
             /* 
             Salvando o cliente no banco 
             */
@@ -33,11 +33,11 @@ routerCliente.post('/', async (req, res) => {
             const clienteSalvo = await clienteCtrl.save(cliente)
             res.json(clienteSalvo);
         }
-        
+
     }
 
 
-   
+
 });
 /* 
 LOGIN
@@ -45,15 +45,19 @@ LOGIN
 routerCliente.post('/auth', async (req, res) => {
     const { email, senha } = req.body;
     const cliente = await clienteCtrl.findByEmail(email);
-    if(!cliente){
-        return res.status(404);
+    if (!cliente) {
+        return res.status(401).json({
+            message: "E-mail/Senha incorreta"
+        })
     }
     const senhaValida = await bcrypt.compare(senha, cliente.senha);
-    if(!senhaValida){
-        return res.status(404);
+    if (!senhaValida) {
+        return res.status(401).json({
+            message: "E-mail/Senha incorreta"
+        })
     }
 
-    return res.json({mensagem:'Login Completo'})
+    return res.json({ mensagem: 'Login Completo' })
     /* 
     Falta gerar token 
         */

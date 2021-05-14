@@ -36,28 +36,30 @@ routerBarbearia.post('/', async (req, res) => {
         }
     }
 
-   
+
 });
 /* 
         LOGIN
         */
-        routerBarbearia.post('/auth', async (req, res) => {
-        const { email, senha } = req.body;
-        const barbearia = await barbeariaCtrl.findByEmail(email);
-        if (!barbearia) {
-            return res.status(404);
-        }
-        const senhaValida = await bcrypt.compare(senha, barbearia.senha);
-        if (!senhaValida) {
-            return res.status(401).json({
-                message: "E-mail/Senha incorreta"
-            })
-        }
+routerBarbearia.post('/auth', async (req, res) => {
+    const { email, senha } = req.body;
+    const barbearia = await barbeariaCtrl.findByEmail(email);
+    if (!barbearia) {
+        return res.status(401).json({
+            message: "E-mail/Senha incorreta"
+        })
+    }
+    const senhaValida = await bcrypt.compare(senha, barbearia.senha);
+    if (!senhaValida) {
+        return res.status(401).json({
+            message: "E-mail/Senha incorreta"
+        })
+    }
 
-        return res.json({ mensagem: 'Login Completo' })
-        /* 
-        Falta gerar token 
-            */
-    });
+    return res.json({ mensagem: 'Login Completo' })
+    /* 
+    Falta gerar token 
+        */
+});
 
 
