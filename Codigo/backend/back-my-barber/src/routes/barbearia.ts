@@ -29,8 +29,11 @@ routerBarbearia.post('/', async (req, res) => {
          */
             const salt = await bcrypt.genSalt(10);
             const senhaHash = await bcrypt.hash(senha, salt);
+            
 
             const barbearia = new Barbearia(nome, email, senhaHash, telefone, cep, logradouro, bairro, cidade, numero, estado, cnpj, telefoneFixo);
+            barbearia.CidadeToLowerCase();
+            console.log(barbearia.cidade);
             const barbeariaSalva = await barbeariaCtrl.save(barbearia);
             res.json(barbeariaSalva);
         }
@@ -60,6 +63,18 @@ routerBarbearia.post('/auth', async (req, res) => {
     /* 
     Falta gerar token 
         */
+});
+
+routerBarbearia.get('/getBarbeariasPorCidade', async (req, res) => {
+    const {cidade} = req.body;
+    
+    const listaBarbearias = await barbeariaCtrl.findByCidade(cidade);
+    if(listaBarbearias.length>0){
+        res.json(listaBarbearias);
+    }else{
+        res.status(404).json( {error:"Não possuem barbearias cadastradas nesta cidade"} )
+    }
+     
 });
 
 

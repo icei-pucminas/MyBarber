@@ -9,7 +9,13 @@ export class BarbeariaController{
         }
         async findByEmail(email:string){
             const repository = getRepository(Barbearia);
-            const cliente = await repository.findOne({ where: {email} });
-            return cliente;
+            const barbearia = await repository.findOne({ where: {email} });
+            return barbearia;
+        }
+        async findByCidade(cidade:string){
+            const repository = getRepository(Barbearia);
+            cidade = cidade.toLowerCase();
+            const listaBarbearias = await repository.find( {where: {cidade}});
+            return listaBarbearias;
         }
 }
