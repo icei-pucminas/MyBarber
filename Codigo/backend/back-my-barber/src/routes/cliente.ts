@@ -2,10 +2,12 @@ import { Router } from 'express';
 import { ClienteController } from '../controller/ClienteController';
 import { Cliente } from '../entity/Cliente';
 import * as bcrypt from 'bcrypt';
+import { BarbeariaController } from '../controller/BaberariaController';
 
 
 export const routerCliente = Router();
 const clienteCtrl = new ClienteController();
+const barbeariaCtrl = new BarbeariaController();
 /* 
     Create Cliente
  */
@@ -17,7 +19,8 @@ routerCliente.post('/', async (req, res) => {
         res.status(500).json({ mensagem: 'Error, Dados Incompletos' })
     } else {
         const clienteEmailValida = await clienteCtrl.findByEmail(email);
-        if (clienteEmailValida) {
+        const barbeariaEmailValida = await barbeariaCtrl.findByEmail(email);
+        if (clienteEmailValida || barbeariaEmailValida) {
             res.status(500).json({ mensagem: 'Email já cadastrado' })
         } else {
             /* 
