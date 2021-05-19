@@ -10,8 +10,8 @@ export class Cliente {
         this.telefone = telefone;
     }
 
-    @PrimaryGeneratedColumn()
-    id: number;
+    @PrimaryGeneratedColumn('uuid')
+    id: string;
 
     @Column()
     nome: string;

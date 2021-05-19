@@ -6,6 +6,8 @@ import * as logger from 'morgan';
 import { conectarServidorNoBD } from './config/db';
 import { routerCliente } from './routes/cliente';
 import { routerBarbearia } from './routes/barbearia';
+import { routerAuth } from './routes/authenticade';
+import authMiddleware from './middlewares/authMiddleware'
 
 /*  Cria aplicação */
 
@@ -38,3 +40,4 @@ conectarServidorNoBD();
 
 app.use('/cliente', routerCliente);
 app.use('/barbearia', routerBarbearia);
+app.use('/auth', routerAuth);

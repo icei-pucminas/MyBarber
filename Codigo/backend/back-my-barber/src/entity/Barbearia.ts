@@ -21,8 +21,8 @@ export class Barbearia {
 
     }
 
-    @PrimaryGeneratedColumn()
-    id: number;
+    @PrimaryGeneratedColumn('uuid')
+    id: string;
 
     @Column()
     nome: string;
