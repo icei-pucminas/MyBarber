@@ -3,8 +3,9 @@ import { useHistory } from 'react-router-dom';
 import api from '../../services/api';
 
 import GlobalStyle from '../../styles/global';
-import { Container } from './styles';
+import { Content } from './styles';
 
+import Container from '../../components/Container';
 import Header from '../../components/Header';
 import Input from '../../components/Input';
 import Button from '../../components/Button';
@@ -39,25 +40,23 @@ const CadastroGeral = () => {
         tipoCliente === 0 ? cadastrar(dados) : history.push('/cadastro/barbearia', dados)
     }, [cadastrar, history, tipoCliente]);
 
-
-
-
     return (
         <Container>
             <GlobalStyle />
             <Header />
-            <h1>Cadastro</h1>
+            <Content>
+                <h1>Cadastro</h1>
 
-            <form onSubmit={handleRegister}>
-                <Input name="nome" placeholder="Nome" Icone={FiUser} required />
-                <Input name="email" placeholder="E-mail" Icone={FiMail} type="email" required />
-                <Input name="telefone" placeholder="Telefone" Icone={FiPhone} type="tel" required />
-                <Input name="senha" placeholder="Senha" Icone={FiLock} type="password" required />
-                <Input name="senhaconfirmacao" placeholder="Confirmar senha" Icone={FiLock} type="password" onPaste={e => e.preventDefault()} required />
-                <Seletor value={tipoCliente} onChange={setTipoCliente} />
-                <Button type="submit">Registrar</Button>
-
-            </form>
+                <form onSubmit={handleRegister}>
+                    <Input name="nome" placeholder="Nome" Icone={FiUser} required />
+                    <Input name="email" placeholder="E-mail" Icone={FiMail} type="email" required />
+                    <Input name="telefone" placeholder="Telefone" Icone={FiPhone} type="tel" required />
+                    <Input name="senha" placeholder="Senha" Icone={FiLock} type="password" required />
+                    <Input name="senhaconfirmacao" placeholder="Confirmar senha" Icone={FiLock} type="password" onPaste={e => e.preventDefault()} required />
+                    <Seletor value={tipoCliente} onChange={setTipoCliente} />
+                    <Button type="submit">Registrar</Button>
+                </form>
+            </Content>
         </Container>
     )
 }

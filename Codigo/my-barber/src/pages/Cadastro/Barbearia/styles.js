@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
-export const Container = styled.div`
-  height: 100vh;
+export const Content = styled.div`
+  flex: 1;
 
   display: flex;
   flex-direction: column;
@@ -13,6 +13,7 @@ export const Container = styled.div`
     color: white;
     font-size: 48px;
     margin: 10px;
+    text-align: center;
   }
 
   a:first-of-type  {

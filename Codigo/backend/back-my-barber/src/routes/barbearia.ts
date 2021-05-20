@@ -25,7 +25,7 @@ routerBarbearia.post('/', async (req, res) => {
     } else {
         const barbeariaValidaEmail = await barbeariaCtrl.findByEmail(email);
         const clienteValidaEmail = await clienteCtrl.findByEmail(email);
-        if (barbeariaValidaEmail|| clienteValidaEmail) {
+        if (barbeariaValidaEmail || clienteValidaEmail) {
             res.status(500).json({ mensagem: 'Email já cadastrado' })
         } else {
             /* 
@@ -33,11 +33,10 @@ routerBarbearia.post('/', async (req, res) => {
          */
             const salt = await bcrypt.genSalt(10);
             const senhaHash = await bcrypt.hash(senha, salt);
-            
+
 
             const barbearia = new Barbearia(nome, email, senhaHash, telefone, cep, logradouro, bairro, cidade, numero, estado, cnpj, telefoneFixo);
             barbearia.CidadeToLowerCase();
-            console.log(barbearia.cidade);
             const barbeariaSalva = await barbeariaCtrl.save(barbearia);
             res.json(barbeariaSalva);
         }
@@ -46,16 +45,23 @@ routerBarbearia.post('/', async (req, res) => {
 
 });
 
-routerBarbearia.get('/getBarbeariasPorCidade', async (req, res) => {
-    const {cidade} = req.body;
-    
-    const listaBarbearias = await barbeariaCtrl.findByCidade(cidade);
-    if(listaBarbearias.length>0){
-        res.json(listaBarbearias);
-    }else{
-        res.status(404).json( {error:"Não possuem barbearias cadastradas nesta cidade"} )
+routerBarbearia.get('/', async (req, res) => {
+    const cidade = req.query.cidade;
+
+    if (!cidade) {
+        const barbearias = await barbeariaCtrl.findAll();
+        res.status(200).json(barbearias);
+        return;
     }
-     
+
+    const listaBarbearias = await barbeariaCtrl.findByCidade(cidade.toString());
+
+    if (listaBarbearias.length > 0) {
+        res.status(200).json(listaBarbearias);
+    } else {
+        res.status(401).json({ error: "Não possuem barbearias cadastradas nesta cidade" })
+    }
+
 });
 
 

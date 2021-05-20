@@ -5,9 +5,6 @@ export const Container = styled.header`
   height: 100px;
 
   padding: 0 130px;
-  
-  position: fixed;
-  top: 0;
 
   display: flex;
   align-items: center;
@@ -25,6 +22,7 @@ export const Container = styled.header`
 export const BarraPesquisa = styled.form`
   position: relative;
   right: 5%;
+  cursor: pointer;
 
   display: flex;
   align-items: center;
@@ -42,6 +40,10 @@ export const BarraPesquisa = styled.form`
   
   img {
     width: 32px;
+  }
+
+  form {
+    width: 100%;
   }
 
   input {

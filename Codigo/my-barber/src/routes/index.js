@@ -8,12 +8,12 @@ import Home from '../pages/Home';
 import Login from '../pages/Login';
 import Cadastro from '../pages/Cadastro';
 import CadastroBarbearia from '../pages/Cadastro/Barbearia';
+import Barbearias from '../pages/Barbearias';
 import Autenticado from '../pages/Autenticado';
 
 
 const CustomRoute = ({ isPrivate, ...rest }) => {
   const { authenticated, loading } = useContext(Context);
-  console.log(authenticated);
 
   if (loading) {
     return <Loading />
@@ -34,7 +34,8 @@ const Routes = () => (
       <CustomRoute exact path="/login" component={Login} />
       <CustomRoute exact path="/cadastro" component={Cadastro} />
       <CustomRoute exact path="/cadastro/barbearia" component={CadastroBarbearia} />
-      <CustomRoute exact isPrivate path="/protected" component={Autenticado} />
+      <CustomRoute exact path="/barbearias" component={Barbearias} />
+      <CustomRoute exact isPrivate path="/protected/" component={Autenticado} />
     </Switch>
   </AuthProvider>
 );
