@@ -60,11 +60,6 @@ export class Barbearia {
     @Column()
     telefoneFixo : string;
 
-
-     CidadeToLowerCase(){
-        this.cidade = this.cidade.toLowerCase();
-    }
-
     
 
 }

@@ -19,6 +19,11 @@ export class BarbeariaController {
         })
         return listaBarbearias;
     }
+    async findById( id: string) {
+        const barbearia = await getManager().findOne(Barbearia, id);
+        return barbearia;
+
+    }
     async findAll() {
         const repository = getRepository(Barbearia);
         const listaBarbearias = await repository.find();

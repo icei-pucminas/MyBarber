@@ -36,7 +36,6 @@ routerBarbearia.post('/', async (req, res) => {
 
 
             const barbearia = new Barbearia(nome, email, senhaHash, telefone, cep, logradouro, bairro, cidade, numero, estado, cnpj, telefoneFixo);
-            barbearia.CidadeToLowerCase();
             const barbeariaSalva = await barbeariaCtrl.save(barbearia);
             res.json(barbeariaSalva);
         }
@@ -61,6 +60,42 @@ routerBarbearia.get('/', async (req, res) => {
     } else {
         res.status(401).json({ error: "Não possuem barbearias cadastradas nesta cidade" })
     }
+
+});
+
+routerBarbearia.post('/:id', async (req, res) => {
+    const { nome, email, senha, telefone, cep, logradouro, bairro, cidade, numero, estado, telefoneFixo} = req.body;
+    const { id } = req.params;
+    let clienteEmailValida;
+    let barbeariaEmailValida;
+    if(email!=null){
+        clienteEmailValida  = await clienteCtrl.findByEmail(email);
+        barbeariaEmailValida  = await barbeariaCtrl.findByEmail(email);
+    }
+    if ((clienteEmailValida && clienteEmailValida.id !== id )|| (barbeariaEmailValida && barbeariaEmailValida.id !== id)) {
+        res.status(500).json({ mensagem: 'Email já cadastrado em outro usuário' })
+    }else{
+        
+        const barbeariaBD = await barbeariaCtrl.findById(id);
+        const salt = await bcrypt.genSalt(10);
+    
+        (nome!=null)?barbeariaBD.nome = nome : null;
+        (email!=null)?barbeariaBD.email = email : null;
+        (senha!=null)?barbeariaBD.senha = await bcrypt.hash(senha, salt) : null;
+        (telefone!=null)?barbeariaBD.telefone = telefone : null;
+        (cep!=null)?barbeariaBD.cep = cep : null;
+        (logradouro!=null)?barbeariaBD.logradouro = logradouro : null;
+        (bairro!=null)?barbeariaBD.bairro = bairro : null;
+        (cidade!=null)?barbeariaBD.cidade = cidade : null;
+        (numero!=null)?barbeariaBD.numero = numero : null;
+        (estado!=null)?barbeariaBD.estado = estado : null;
+        (telefoneFixo!=null)?barbeariaBD.telefoneFixo = telefoneFixo : null;
+       
+        const clienteSalvo = await clienteCtrl.save(barbeariaBD);
+        res.json(clienteSalvo);
+    }
+   
+
 
 });
 
