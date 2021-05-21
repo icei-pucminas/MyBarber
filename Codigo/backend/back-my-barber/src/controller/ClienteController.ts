@@ -15,5 +15,10 @@ export class ClienteController {
         const cliente = await repository.findOne({ where: {email} });
         return cliente;
     }
+    async findById( id: string) {
+        const cliente = await getManager().findOne(Cliente, id);
+        return cliente;
+
+    }
 }
 
