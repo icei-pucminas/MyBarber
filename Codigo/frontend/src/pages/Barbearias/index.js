@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import api from '../../services/api';
 import useQuery from '../../hooks/useQuery';
+import { FiFrown } from "react-icons/fi";
+
 
 import GlobalStyle from '../../styles/global';
-import { Content, CardContainer } from './styles';
+import { Content, CardContainer, NaoTemarbearia } from './styles';
 
 import Container from '../../components/Container';
 import Header from '../../components/Header';
@@ -18,6 +20,7 @@ const Barbearias = () => {
   const cidade = query.get('cidade');
 
   const [barbearias, setBarbearias] = useState([]);
+  const [naoTemBarbearia, setNaoTemBarbearia] = useState(false);
   const [teste, setTeste] = useState([]);
   const [offset, setOffset] = useState(0);
 
@@ -29,6 +32,9 @@ const Barbearias = () => {
   }, [cidade]);
 
   useEffect(() => {
+    if(barbearias.length===0){
+      setNaoTemBarbearia(true);
+    }
     // Atualiza a lista de acordo com a paginação
     if (barbearias.length < offset) setOffset(0);
     setTeste(barbearias.slice(offset, (offset + CARDS_LIMIT)));
@@ -42,6 +48,7 @@ const Barbearias = () => {
       <Header />
       <Content>
         <h1>Barbearias{cidade && ` em ${cidade}`}</h1>
+      
         <CardContainer>
           {teste.map((barbearia) => (
             <Card key={barbearia.id}>
@@ -54,6 +61,11 @@ const Barbearias = () => {
             </Card>
           ))}
         </CardContainer>
+        {naoTemBarbearia&&
+          <NaoTemarbearia>
+            <p className="msg-nao-barbearia">Não possuem Barbearias na sua cidade cadastradas no MyBarber! <FiFrown size ={42} className = "icon-bad"/> </p>
+          </NaoTemarbearia>
+        }
         {barbearias.length > 0 &&
           <Pagination limit={CARDS_LIMIT} total={barbearias.length}
             offset={offset} setOffset={setOffset} />

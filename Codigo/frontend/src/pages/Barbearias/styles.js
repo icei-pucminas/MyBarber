@@ -14,6 +14,23 @@ export const Content = styled.div`
     text-align: center;
   }
 `;
+export const NaoTemarbearia = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  p {
+    font-size: 24px;
+    color: white;
+    margin-top: 285px;
+    text-align: center;
+  }
+  .icon-bad {
+    position: absolute;
+    left: 70%;
+    top: 55%;
+  }
+`
 
 export const CardContainer = styled.div`
   margin: 25px 0;
