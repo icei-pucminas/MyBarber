@@ -39,31 +39,31 @@ routerCliente.post('/', async (req, res) => {
 
     }
 });
-routerCliente.post('/:id', async (req, res) => {
+routerCliente.put('/:id', async (req, res) => {
     const { nome, email, senha, telefone } = req.body;
     const { id } = req.params;
     let clienteEmailValida;
     let barbeariaEmailValida;
-    if(email!=null){
-        clienteEmailValida  = await clienteCtrl.findByEmail(email);
-        barbeariaEmailValida  = await barbeariaCtrl.findByEmail(email);
+    if (email != null) {
+        clienteEmailValida = await clienteCtrl.findByEmail(email);
+        barbeariaEmailValida = await barbeariaCtrl.findByEmail(email);
     }
-    if ((clienteEmailValida && clienteEmailValida.id !== id )|| (barbeariaEmailValida && barbeariaEmailValida.id !== id)) {
+    if ((clienteEmailValida && clienteEmailValida.id !== id) || (barbeariaEmailValida && barbeariaEmailValida.id !== id)) {
         res.status(500).json({ mensagem: 'Email já cadastrado em outro usuário' })
-    }else{
-        
+    } else {
+
         const clienteBD = await clienteCtrl.findById(id);
         const salt = await bcrypt.genSalt(10);
-    
-        (nome!=null)?clienteBD.nome = nome : null;
-        (email!=null)?clienteBD.email = email : null;
-        (senha!=null)?clienteBD.senha = await bcrypt.hash(senha, salt) : null;
-        (telefone!=null)?clienteBD.telefone = telefone : null;
-       
+
+        (nome != null) ? clienteBD.nome = nome : null;
+        (email != null) ? clienteBD.email = email : null;
+        (senha != null) ? clienteBD.senha = await bcrypt.hash(senha, salt) : null;
+        (telefone != null) ? clienteBD.telefone = telefone : null;
+
         const clienteSalvo = await clienteCtrl.save(clienteBD);
         res.json(clienteSalvo);
     }
-   
+
 
 
 });
