@@ -35,12 +35,23 @@ export const BarraPesquisa = styled.form`
   padding: 14px;
 
   background-color: #FF9000; 
+  margin: 30px;
 
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   
-  img {
-    width: 32px;
+  button {
+    background: none;
+    
+    svg {
+      color: white;
+      transition: all 0.2s;
+
+      &:hover {
+        color: black;
+      }
+    }
   }
+
 
   form {
     width: 100%;
@@ -60,3 +71,23 @@ export const BarraPesquisa = styled.form`
   }
 `;
 
+export const BemVindo = styled.div`
+  display: flex;
+  align-items: center;
+  margin-right: 40px;
+
+  img {
+    width: 75px;
+    margin: 10px;
+  }
+
+  p {
+    color: white;
+    font-size: 16px;
+  }
+  span {
+    color: #FF9000;
+    font-size: 16px;
+    font-weight: bold;
+  }
+`;
