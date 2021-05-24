@@ -1,15 +1,10 @@
 import React, { useCallback, useContext } from 'react';
 import { Context } from '../../context/AuthContext';
+import { FiMail, FiLock } from 'react-icons/fi';
 
-import GlobalStyle from '../../styles/global';
-import { Content } from './styles';
-
-import Container from '../../components/Container';
-import Header from '../../components/Header';
+import { Container } from './styles';
 import Input from '../../components/Input';
 import Button from '../../components/Button';
-
-import { FiMail, FiLock } from 'react-icons/fi';
 
 const Login = () => {
   const { handleLogin } = useContext(Context);
@@ -28,19 +23,15 @@ const Login = () => {
 
   return (
     <Container>
-      <GlobalStyle />
-      <Header />
-      <Content>
-        <h1>Entrar</h1>
-        <form onSubmit={handleSubmit}>
-          <Input name="email" placeholder="E-mail" Icone={FiMail} type="email" required />
-          <Input name="password" placeholder="Senha" Icone={FiLock} type="password" required />
-          <Button type="submit">Continuar</Button>
-        </form>
+      <h1>Entrar</h1>
+      <form onSubmit={handleSubmit}>
+        <Input name="email" placeholder="E-mail" Icone={FiMail} type="email" required />
+        <Input name="password" placeholder="Senha" Icone={FiLock} type="password" required />
+        <Button type="submit">Continuar</Button>
+      </form>
 
-        <a href="/">Esqueci minha senha</a>
-        <a href="/cadastro">Ainda não possui conta? Cadastre-se</a>
-      </Content>
+      <a href="/">Esqueci minha senha</a>
+      <a href="/cadastro">Ainda não possui conta? Cadastre-se</a>
     </Container>
   )
 }

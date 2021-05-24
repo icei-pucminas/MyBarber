@@ -1,17 +1,14 @@
 import React, { useState, useCallback } from 'react';
 import { useHistory } from 'react-router-dom';
+import { FiMail, FiLock, FiPhone, FiUser } from 'react-icons/fi';
+
 import api from '../../services/api';
 
-import GlobalStyle from '../../styles/global';
-import { Content } from './styles';
-
-import Container from '../../components/Container';
-import Header from '../../components/Header';
+import { Container } from './styles';
 import Input from '../../components/Input';
 import Button from '../../components/Button';
 import Seletor from '../../components/Seletor';
 
-import { FiMail, FiLock, FiPhone, FiUser } from 'react-icons/fi';
 
 const CadastroGeral = () => {
     const history = useHistory();
@@ -43,21 +40,17 @@ const CadastroGeral = () => {
 
     return (
         <Container>
-            <GlobalStyle />
-            <Header />
-            <Content>
-                <h1>Cadastro</h1>
+            <h1>Cadastro</h1>
 
-                <form onSubmit={handleRegister}>
-                    <Input name="nome" placeholder="Nome" Icone={FiUser} required />
-                    <Input name="email" placeholder="E-mail" Icone={FiMail} type="email" required />
-                    <Input name="telefone" placeholder="Telefone" Icone={FiPhone} type="tel" required />
-                    <Input name="senha" placeholder="Senha" Icone={FiLock} type="password" required />
-                    <Input name="senhaconfirmacao" placeholder="Confirmar senha" Icone={FiLock} type="password" onPaste={e => e.preventDefault()} required />
-                    <Seletor value={tipoCliente} onChange={setTipoCliente} />
-                    <Button type="submit">Registrar</Button>
-                </form>
-            </Content>
+            <form onSubmit={handleRegister}>
+                <Input name="nome" placeholder="Nome" Icone={FiUser} required />
+                <Input name="email" placeholder="E-mail" Icone={FiMail} type="email" required />
+                <Input name="telefone" placeholder="Telefone" Icone={FiPhone} type="tel" required />
+                <Input name="senha" placeholder="Senha" Icone={FiLock} type="password" required />
+                <Input name="senhaconfirmacao" placeholder="Confirmar senha" Icone={FiLock} type="password" onPaste={e => e.preventDefault()} required />
+                <Seletor value={tipoCliente} onChange={setTipoCliente} />
+                <Button type="submit">Registrar</Button>
+            </form>
         </Container>
     )
 }

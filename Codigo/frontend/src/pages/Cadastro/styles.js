@@ -1,15 +1,13 @@
 import styled from 'styled-components';
 
-export const Content = styled.div`
-  flex: 1;
-  
+export const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  min-height: calc(100vh - 100px);
 
   h1 {
-    font-weight: bold;
     color: white;
     font-size: 48px;
     margin: 10px;

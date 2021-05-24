@@ -1,20 +1,16 @@
 import React, { useCallback } from 'react';
 import { useHistory } from 'react-router-dom';
+import { FiBriefcase, FiMapPin, FiPhone } from 'react-icons/fi';
 import axios from 'axios';
+
 import api from '../../../services/api';
 
-import GlobalStyle from '../../../styles/global';
-import { Content } from './styles';
-
-import Container from '../../../components/Container';
-import Header from '../../../components/Header';
+import { Container } from './styles';
 import Input from '../../../components/Input';
 import Button from '../../../components/Button';
 
-import { FiBriefcase, FiMapPin, FiPhone } from 'react-icons/fi';
 
 const CadastroBarbearia = () => {
-
     const history = useHistory();
 
     const dados = history.location.state;
@@ -55,24 +51,19 @@ const CadastroBarbearia = () => {
 
     return (
         <Container>
-            <GlobalStyle />
-            <Header />
-            <Content>
-                <h1>Cadastro de Barbearia</h1>
-                <form onSubmit={handleRegister}>
-                    <Input name="cep" placeholder="CEP" minLength="8" Icone={FiMapPin} onBlur={getCEP} required />
-                    <Input name="logradouro" placeholder="Logradouro" Icone={FiMapPin} required />
-                    <Input name="bairro" placeholder="Bairro" Icone={FiMapPin} required />
-                    <Input name="cidade" placeholder="Cidade" Icone={FiMapPin} required />
-                    <Input name="numero" placeholder="Numero" type="number" Icone={FiMapPin} required />
-                    <Input name="estado" placeholder="Estado" Icone={FiMapPin} required />
-                    <Input name="cnpj" placeholder="CNPJ" Icone={FiBriefcase} required />
-                    <Input name="telefoneFixo" placeholder="Telefone Fixo" Icone={FiPhone} required />
+            <h1>Cadastro de Barbearia</h1>
+            <form onSubmit={handleRegister}>
+                <Input name="cep" placeholder="CEP" minLength="8" Icone={FiMapPin} onBlur={getCEP} required />
+                <Input name="logradouro" placeholder="Logradouro" Icone={FiMapPin} required />
+                <Input name="bairro" placeholder="Bairro" Icone={FiMapPin} required />
+                <Input name="cidade" placeholder="Cidade" Icone={FiMapPin} required />
+                <Input name="numero" placeholder="Numero" type="number" Icone={FiMapPin} required />
+                <Input name="estado" placeholder="Estado" Icone={FiMapPin} required />
+                <Input name="cnpj" placeholder="CNPJ" Icone={FiBriefcase} required />
+                <Input name="telefoneFixo" placeholder="Telefone Fixo" Icone={FiPhone} required />
 
-                    <Button type="submit">Registrar</Button>
-                </form>
-            </Content>
-
+                <Button type="submit">Registrar</Button>
+            </form>
         </Container>
     )
 }

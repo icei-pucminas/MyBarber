@@ -81,13 +81,33 @@ export const BemVindo = styled.div`
     margin: 10px;
   }
 
-  p {
-    color: white;
-    font-size: 16px;
-  }
-  span {
-    color: #FF9000;
-    font-size: 16px;
-    font-weight: bold;
+  div {
+    display: flex;
+    flex-direction: column;
+
+    p {
+      color: white;
+      font-size: 16px;
+    }
+
+    span {
+      color: #FF9000;
+      font-size: 16px;
+      font-weight: bold;
+    }
+
+    button {
+      align-self: flex-start;
+      background: none;
+      font-size: 14px;
+      font-weight: bold;
+      text-decoration: underline;
+      color: #ff2a00;
+      transition: color 0.2s;
+      
+      &:hover {
+        color: white;
+      }
+    }
   }
 `;

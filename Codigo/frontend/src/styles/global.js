@@ -16,6 +16,9 @@ export default createGlobalStyle`
     vertical-align: baseline;
     font-family:'Roboto Slab', serif;
   }
+  h1 {
+    font-weight: bold;
+  }
   a {
     text-decoration: none;
   }
