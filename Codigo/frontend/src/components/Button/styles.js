@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 export const Container = styled.button`
 
-  width: ${({ tamanho }) => tamanho ? '175px' : '370px'};
+  min-width: ${({ tamanho }) => tamanho ? '175px' : '370px'};
   height: 55px;
   border-radius: 10px;
 

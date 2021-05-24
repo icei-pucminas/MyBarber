@@ -22,7 +22,7 @@ export const Container = styled.div`
 
   form {
     display: grid;
-    grid-template-columns: auto auto;
+    grid-template-columns: repeat(2, 1fr);
     grid-gap: 10px;
 
     div {
@@ -30,10 +30,7 @@ export const Container = styled.div`
     }
     
     button {
-      // not working
       grid-column: auto / span 2;
-
-      justify-content: center;
     }
 
     @media only screen and (max-width: 640px) {

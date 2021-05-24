@@ -8,6 +8,14 @@ const Card = styled.div`
   background: #545454;
   cursor: pointer;
 
+  transition: transform 0.2s;
+
+  box-shadow: -1px 0px 4px 4px rgba(0, 0, 0, 0.07);
+
+  &:hover {
+    transform: scale(1.05);
+  }
+
   img {
     width: 50%;
     border-radius: 10px 0px 0px 10px;
