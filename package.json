@@ -1,5 +1,6 @@
 {
-  "dependencies": {
-    "styled-components": "^5.3.0"
+  "scripts": {
+    "frontend": "yarn --cwd Codigo/frontend react-scripts start",
+    "backend": "yarn --cwd Codigo/backend nodemon --exec ts-node src/server.ts"
   }
 }
