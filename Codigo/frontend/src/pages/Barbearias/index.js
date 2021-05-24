@@ -20,7 +20,7 @@ const Barbearias = () => {
   const cidade = query.get('cidade');
 
   const [barbearias, setBarbearias] = useState([]);
-  const [naoTemBarbearia, setNaoTemBarbearia] = useState(false);
+  const [naoTemBarbearia, setNaoTemBarbearia] = useState(true);
   const [teste, setTeste] = useState([]);
   const [offset, setOffset] = useState(0);
 
@@ -28,19 +28,20 @@ const Barbearias = () => {
     (async () => {
       const { data } = await api.get('/barbearia', { params: { cidade } });
       setBarbearias(data);
+      if (data.length !== 0) setNaoTemBarbearia(false);
     })();
   }, [cidade]);
 
   useEffect(() => {
-    if(barbearias.length===0){
-      setNaoTemBarbearia(true);
-    }
+    // if(barbearias.length===0){
+    //   setNaoTemBarbearia(true);
+    // }
     // Atualiza a lista de acordo com a paginação
     if (barbearias.length < offset) setOffset(0);
     setTeste(barbearias.slice(offset, (offset + CARDS_LIMIT)));
   }, [barbearias, offset]);
 
-
+  console.log(barbearias.length !== 0);
 
   return (
     <Container>
@@ -48,7 +49,7 @@ const Barbearias = () => {
       <Header />
       <Content>
         <h1>Barbearias{cidade && ` em ${cidade}`}</h1>
-      
+
         <CardContainer>
           {teste.map((barbearia) => (
             <Card key={barbearia.id}>
@@ -61,9 +62,9 @@ const Barbearias = () => {
             </Card>
           ))}
         </CardContainer>
-        {naoTemBarbearia&&
+        {naoTemBarbearia &&
           <NaoTemarbearia>
-            <p className="msg-nao-barbearia">Não possuem Barbearias na sua cidade cadastradas no MyBarber! <FiFrown size ={42} className = "icon-bad"/> </p>
+            <p className="msg-nao-barbearia">Não possuem Barbearias na sua cidade cadastradas no MyBarber! <FiFrown size={42} className="icon-bad" /> </p>
           </NaoTemarbearia>
         }
         {barbearias.length > 0 &&

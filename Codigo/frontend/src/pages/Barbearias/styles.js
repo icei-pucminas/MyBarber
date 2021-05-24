@@ -26,9 +26,7 @@ export const NaoTemarbearia = styled.div`
     text-align: center;
   }
   .icon-bad {
-    position: absolute;
-    left: 70%;
-    top: 55%;
+
   }
 `
 
