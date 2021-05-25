@@ -6,6 +6,10 @@ export const Container = styled.div`
   align-items: center;
   min-height: calc(100vh - 100px);
 
+  filter: ${({ blur }) => (blur ? 'blur(10px)' : 'none')};
+
+  transition: filter 0.1s;
+
   padding: 25px 150px;
 
   h1 {
@@ -16,6 +20,15 @@ export const Container = styled.div`
   & > button {
     margin-top: 25px;
     width: 750px;
+
+    &:hover:disabled {
+      background: #FF9000;
+      color: #312E38;
+    }
+
+    &:disabled {
+     cursor: auto; 
+    }
   }
 `;
 
@@ -34,7 +47,7 @@ export const CardFuncionario = styled.div`
     z-index: 2;
   }
 
-  section {
+  main {
     position: relative;
     right: 5%;
     z-index: 1;
@@ -59,7 +72,7 @@ export const CardFuncionario = styled.div`
 
     }
 
-    div {
+    section {
       width: 100%;
       display: flex;
       align-items: center;
@@ -72,8 +85,14 @@ export const CardFuncionario = styled.div`
 
       button {
         background: transparent;
-        color: #ff2a00;
         transition: color 0.2s;
+        margin-left: 10px;
+        
+        &:first-of-type {
+          color: #FF9000;
+        }
+
+        color: #ff2a00;
 
         &:hover {
           color: white;

@@ -6,19 +6,33 @@ import Button from '../../../components/Button';
 
 import { Container } from './styles';
 
-import { FiLock, FiMail, FiWatch, FiX } from 'react-icons/fi';
+import { FiLock, FiUser, FiWatch, FiX } from 'react-icons/fi';
 
-const ModalCadastro = ({ funcionario }) => {
+const DEFAULT_IMG = "https://i.pinimg.com/originals/51/f6/fb/51f6fb256629fc755b8870c801092942.png";
+
+const ModalCadastro = ({ funcionario, show, handleClose }) => {
+
+  const initialValues = {
+    nome: '',
+    telefone: '',
+    foto: DEFAULT_IMG,
+    horaInicio: '',
+    horaFim: ''
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+  }
 
   return (
-    <Container>
-      <h1><FiX size={36} />Cadastro de Funcionário</h1>
-      <img src={funcionario.foto} alt={funcionario.nome} />
-      <Formik>
+    <Container show={show}>
+      <h1><FiX size={36} onClick={handleClose} />Cadastro de Funcionário</h1>
+      <img src={funcionario.foto ? funcionario.foto : DEFAULT_IMG} alt="Barbeiro" />
+      <Formik onSubmit={handleSubmit} enableReinitialize initialValues={funcionario.nome ? { ...funcionario } : initialValues}  >
         <Form>
           <Field name="nome">
             {({ field }) => (
-              <Input placeholder="Nome" Icone={FiMail} required {...field} />
+              <Input placeholder="Nome" Icone={FiUser} required {...field} />
             )}
           </Field>
           <Field name="telefone">
@@ -36,7 +50,7 @@ const ModalCadastro = ({ funcionario }) => {
               <Input placeholder="Horário Final" Icone={FiWatch} required {...field} />
             )}
           </Field>
-          <Button>Cadastrar</Button>
+          <Button type="submit">Cadastrar</Button>
         </Form>
       </Formik>
     </Container>

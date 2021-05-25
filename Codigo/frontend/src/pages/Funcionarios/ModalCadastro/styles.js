@@ -1,13 +1,18 @@
 import styled from 'styled-components';
 
 export const Container = styled.div`
-  display: flex;
+  display: ${({ show }) => (show ? 'flex' : 'none')};
   flex-direction: column;
   align-items: center;
   justify-content: center;
 
-  min-height: 50vh;
-  min-width: 50vh;
+  position: fixed;
+  z-index: 10;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  min-width: 30vw;
   border-radius: 10px;
 
   padding: 35px;
