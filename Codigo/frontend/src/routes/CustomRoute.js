@@ -4,7 +4,7 @@ import { Context } from '../context/AuthContext';
 
 import Loading from '../components/Loading';
 
-const CustomRoute = ({ isPrivate, disallowAuthenticated, disallowBarber, ...rest }) => {
+const CustomRoute = ({ isPrivate, disallowAuthenticated, disallowBarber, disallowClient, ...rest }) => {
   const { authenticated, loading } = useContext(Context);
   const isBarber = JSON.parse(localStorage.getItem('user'))?.cnpj;
 
@@ -21,6 +21,10 @@ const CustomRoute = ({ isPrivate, disallowAuthenticated, disallowBarber, ...rest
   }
 
   if (disallowBarber && isBarber && authenticated) {
+    return <Redirect to="/" />
+  }
+
+  if (disallowClient && !isBarber) {
     return <Redirect to="/" />
   }
 

@@ -10,6 +10,7 @@ import Cadastro from '../pages/Cadastro';
 import CadastroBarbearia from '../pages/Cadastro/Barbearia';
 import Barbearias from '../pages/Barbearias';
 import Perfil from '../pages/Perfil';
+import Funcionarios from '../pages/Funcionarios';
 
 const Routes = () => (
   // Aqui colocamos todas nossas rotas e a página(componente) a ser exibido
@@ -22,6 +23,7 @@ const Routes = () => (
       <CustomRoute exact path="/cadastro/barbearia" component={CadastroBarbearia} disallowAuthenticated />
       <CustomRoute exact path="/barbearias" component={Barbearias} disallowBarber />
       <CustomRoute exact path="/perfil/" component={Perfil} isPrivate />
+      <CustomRoute exact path="/funcionarios/" component={Funcionarios} isPrivate disallowClient />
     </Switch>
   </AuthProvider>
 );
