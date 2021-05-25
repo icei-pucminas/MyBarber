@@ -1,10 +1,9 @@
 import React from 'react';
-import { FiTrash2, FiX } from 'react-icons/fi';
+import { FiTrash2 } from 'react-icons/fi';
 import fakeData from './fakeData';
 
 import { Container, CardFuncionario } from './styles';
 import Button from '../../components/Button';
-import ModalCadastro from './ModalCadastro';
 
 const Funcionarios = () => {
 
