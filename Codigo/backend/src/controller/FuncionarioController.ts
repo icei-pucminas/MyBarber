@@ -16,11 +16,11 @@ export class FuncionarioController {
     }
 
     async deleteById( id : string ){
-      let msg;
-      await getManager().delete(Funcionario, id).then(() => {
-        msg = objectConstants.MSG_OK;
+      
+      const msg = await getManager().delete(Funcionario, id).then(() => {
+        return objectConstants.MSG_OK;
       }).catch(() => {
-        msg = objectConstants.MSG_ERROR;
+        return objectConstants.MSG_ERROR;
       })
        return msg;
     }
