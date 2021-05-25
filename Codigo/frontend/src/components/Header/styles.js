@@ -11,12 +11,18 @@ export const Container = styled.header`
   justify-content: space-around;
 
   background-color: rgba(0,0,0, 0.75);
-  
-  .menu{
-    visibility: collapse;
-  }
 
   border-bottom: solid 3px #FF9000;
+
+  svg {
+    color: #FF9000;
+    cursor: pointer;
+    transition: color 0.2s;
+
+    &:hover {
+      color: white;
+    }
+  }
 `;
 
 export const BarraPesquisa = styled.form`
