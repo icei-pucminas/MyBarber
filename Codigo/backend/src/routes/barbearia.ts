@@ -77,26 +77,42 @@ routerBarbearia.put('/:id', async (req, res) => {
     } else {
 
         const barbeariaBD = await barbeariaCtrl.findById(id);
-        const salt = await bcrypt.genSalt(10);
+        if(barbeariaBD){
+            const salt = await bcrypt.genSalt(10);
 
-        (nome != null) ? barbeariaBD.nome = nome : null;
-        (email != null) ? barbeariaBD.email = email : null;
-        (senha != null) ? barbeariaBD.senha = await bcrypt.hash(senha, salt) : null;
-        (telefone != null) ? barbeariaBD.telefone = telefone : null;
-        (cep != null) ? barbeariaBD.cep = cep : null;
-        (logradouro != null) ? barbeariaBD.logradouro = logradouro : null;
-        (bairro != null) ? barbeariaBD.bairro = bairro : null;
-        (cidade != null) ? barbeariaBD.cidade = cidade : null;
-        (numero != null) ? barbeariaBD.numero = numero : null;
-        (estado != null) ? barbeariaBD.estado = estado : null;
-        (telefoneFixo != null) ? barbeariaBD.telefoneFixo = telefoneFixo : null;
-
-        const clienteSalvo = await clienteCtrl.save(barbeariaBD);
-        res.json(clienteSalvo);
+            (nome != null) ? barbeariaBD.nome = nome : null;
+            (email != null) ? barbeariaBD.email = email : null;
+            (senha != null) ? barbeariaBD.senha = await bcrypt.hash(senha, salt) : null;
+            (telefone != null) ? barbeariaBD.telefone = telefone : null;
+            (cep != null) ? barbeariaBD.cep = cep : null;
+            (logradouro != null) ? barbeariaBD.logradouro = logradouro : null;
+            (bairro != null) ? barbeariaBD.bairro = bairro : null;
+            (cidade != null) ? barbeariaBD.cidade = cidade : null;
+            (numero != null) ? barbeariaBD.numero = numero : null;
+            (estado != null) ? barbeariaBD.estado = estado : null;
+            (telefoneFixo != null) ? barbeariaBD.telefoneFixo = telefoneFixo : null;
+    
+            const clienteSalvo = await clienteCtrl.save(barbeariaBD);
+            res.json(clienteSalvo);
+        }else{
+            res.status(404).json({mensagem: 'Barbearia não encontrada'})
+        }
+        
     }
 
 
 
 });
+
+routerBarbearia.get('/funcionarios/:id', async (req, res) => {
+    const { id } = req.params;
+    const funcionarios = await barbeariaCtrl.getFuncionariosPorBarbearia(id);
+    if(funcionarios.length===0){
+        res.status(404).json({mensagem: 'Sem Funcionarios'})
+    }else{
+        res.json(funcionarios)
+    }
+    
+})
 
 

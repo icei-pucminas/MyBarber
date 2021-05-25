@@ -1,4 +1,5 @@
-import {Entity, PrimaryGeneratedColumn, Column} from "typeorm";
+import {Entity, PrimaryGeneratedColumn, Column, OneToMany} from "typeorm";
+import { Funcionario } from "./Funcionario";
 
 @Entity()
 export class Barbearia {
@@ -59,6 +60,9 @@ export class Barbearia {
 
     @Column()
     telefoneFixo : string;
+
+    @OneToMany(() => Funcionario, funcionario => funcionario.barbearia)
+    funcionarios : Funcionario[];
 
     
 

@@ -53,15 +53,20 @@ routerCliente.put('/:id', async (req, res) => {
     } else {
 
         const clienteBD = await clienteCtrl.findById(id);
-        const salt = await bcrypt.genSalt(10);
+        if(clienteBD){
+            const salt = await bcrypt.genSalt(10);
 
-        (nome != null) ? clienteBD.nome = nome : null;
-        (email != null) ? clienteBD.email = email : null;
-        (senha != null) ? clienteBD.senha = await bcrypt.hash(senha, salt) : null;
-        (telefone != null) ? clienteBD.telefone = telefone : null;
-
-        const clienteSalvo = await clienteCtrl.save(clienteBD);
-        res.json(clienteSalvo);
+            (nome != null) ? clienteBD.nome = nome : null;
+            (email != null) ? clienteBD.email = email : null;
+            (senha != null) ? clienteBD.senha = await bcrypt.hash(senha, salt) : null;
+            (telefone != null) ? clienteBD.telefone = telefone : null;
+    
+            const clienteSalvo = await clienteCtrl.save(clienteBD);
+            res.json(clienteSalvo);
+        }else{
+            res.status(404).json({mensagem: 'Cliente não encontrado'})
+        }
+       
     }
 
 

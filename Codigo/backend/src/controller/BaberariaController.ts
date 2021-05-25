@@ -29,4 +29,10 @@ export class BarbeariaController {
         const listaBarbearias = await repository.find();
         return listaBarbearias;
     }
+    async getFuncionariosPorBarbearia(id: string){
+        const barbearia = await getManager().findOne(Barbearia, id, {
+            relations: ['funcionarios']
+        });
+        return barbearia.funcionarios;
+    }
 }

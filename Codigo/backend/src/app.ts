@@ -9,6 +9,7 @@ import { routerBarbearia } from './routes/barbearia';
 import { routerAuth } from './routes/authenticade';
 import authMiddleware from './middlewares/authMiddleware'
 import { routerProtected } from './routes/protected';
+import { routerFuncionario } from './routes/funcionario';
 
 /*  Cria aplicação */
 
@@ -41,5 +42,6 @@ conectarServidorNoBD();
 
 app.use('/cliente', routerCliente);
 app.use('/barbearia', routerBarbearia);
+app.use('/funcionario', routerFuncionario);
 app.use('/auth', routerAuth);
 app.use('/protected', routerProtected);
