@@ -15,7 +15,7 @@ const Sidebar = ({ user, show, setShowSidebar }) => {
       <div>
         <FiX size={42} onClick={() => setShowSidebar(false)} />
         <span>Menu</span>
-        <Link to="/perfil"><img src={DEFAULT_IMG} alt="Foto de Perfil" /></Link>
+        <Link to="/perfil"><img src={user.imagem} alt="Foto de Perfil" /></Link>
       </div>
       <nav>
         <ul>

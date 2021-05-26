@@ -1,7 +1,9 @@
 import React, { useCallback } from 'react';
 import { useHistory } from 'react-router'
 import { Field, Form, Formik } from 'formik';
-import { FiLock, FiUser, FiWatch, FiX } from 'react-icons/fi';
+import { FiLock, FiUser, FiWatch, FiX, FiImage } from 'react-icons/fi';
+
+import validateURL from '../../../helpers/validateURL';
 import compareObjects from '../../../helpers/compareObjects';
 import api from '../../../services/api';
 
@@ -10,19 +12,20 @@ import Button from '../../../components/Button';
 
 import { Container } from './styles';
 
-const DEFAULT_IMG = "https://i.pinimg.com/originals/51/f6/fb/51f6fb256629fc755b8870c801092942.png";
+const DEFAULT_IMG = "https://image.freepik.com/fotos-gratis/homem-confiante-barbeiro-profissional-com-uma-tesoura-cabeleireiro-elegante-na-barbearia-publicidade-e-barbearia-conceito_167187-244.jpg";
 
 const ModalCadastro = ({ funcionario, show, handleClose, idBarbearia }) => {
   const history = useHistory();
   const initialValues = {
     nome: '',
     telefone: '',
-    foto: DEFAULT_IMG,
+    imagem: '',
     horarioInicial: '',
     horarioFinal: ''
   };
 
   const handleSubmit = useCallback(async (values, actions) => {
+    console.log('hello')
     const { id } = funcionario;
     const changedValues = compareObjects(values, funcionario);
 
@@ -41,11 +44,11 @@ const ModalCadastro = ({ funcionario, show, handleClose, idBarbearia }) => {
       }
     } else {
       try {
-        await api.post('funcionario', { idBarbearia, ...changedValues });
+        await api.post('/funcionario', { idBarbearia, ...changedValues });
         history.go(0);
       } catch (error) {
         console.log(error);
-        alert("Ocorreu um erro ao crair o funcionário");
+        alert("Ocorreu um erro ao criar o funcionário");
       }
     }
   }, [funcionario, history, idBarbearia]);
@@ -53,7 +56,7 @@ const ModalCadastro = ({ funcionario, show, handleClose, idBarbearia }) => {
   return (
     <Container show={show}>
       <h1><FiX size={36} onClick={handleClose} />Cadastro de Funcionário</h1>
-      <img src={funcionario.foto ? funcionario.foto : DEFAULT_IMG} alt="Barbeiro" />
+      <img src={funcionario.imagem ? funcionario.imagem : DEFAULT_IMG} alt="Barbeiro" />
       <Formik onSubmit={handleSubmit} enableReinitialize initialValues={funcionario.nome ? { ...funcionario } : initialValues}  >
         <Form>
           <Field name="nome">
@@ -64,6 +67,11 @@ const ModalCadastro = ({ funcionario, show, handleClose, idBarbearia }) => {
           <Field name="telefone">
             {({ field }) => (
               <Input placeholder="Telefone" Icone={FiLock} required {...field} />
+            )}
+          </Field>
+          <Field name="imagem">
+            {({ field }) => (
+              <Input placeholder="URL da Imagem" Icone={FiImage} {...field} />
             )}
           </Field>
           <Field name="horarioInicial">

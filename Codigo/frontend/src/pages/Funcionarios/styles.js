@@ -44,6 +44,8 @@ export const CardFuncionario = styled.div`
 
   img {
     width: 160px;
+    height: 160px;
+    border-radius: 50%;
     z-index: 2;
   }
 

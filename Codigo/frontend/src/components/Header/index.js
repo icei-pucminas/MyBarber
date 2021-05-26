@@ -9,8 +9,6 @@ import Sidebar from './Sidebar';
 import { Container, BarraPesquisa, BemVindo } from './styles';
 import Logo from '../Logo';
 
-const DEFAULT_IMG = "https://i.pinimg.com/originals/51/f6/fb/51f6fb256629fc755b8870c801092942.png";
-
 const Header = () => {
   const history = useHistory();
   const { authenticated, handleLogout } = useContext(Context);
@@ -29,6 +27,7 @@ const Header = () => {
     })
   }, [history])
 
+
   const handleSubmit = (e) => {
     e.preventDefault();
     history.push(`/barbearias?cidade=${city}`);
@@ -41,7 +40,7 @@ const Header = () => {
         {authenticated && (
           <BemVindo>
             <Link to="/perfil" >
-              <img src={DEFAULT_IMG} alt="Foto de Perfil" />
+              <img src={user.imagem} alt="Foto de Perfil" />
             </Link>
             <div>
               <p>Bem Vindo,</p>

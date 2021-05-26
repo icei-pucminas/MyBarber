@@ -9,8 +9,10 @@ export const Container = styled.div`
 
   section {
     margin-bottom: 25px;
+
     img {
       width: 160px;
+      height: 160px;
       border-radius: 50%;
     }
     h1 {

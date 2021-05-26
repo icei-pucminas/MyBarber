@@ -1,30 +1,42 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useContext } from 'react';
 import { Field, Form, Formik } from 'formik';
-import { FiUser, FiPhone, FiMail, FiLock, FiMapPin } from 'react-icons/fi';
+import { useHistory } from 'react-router'
+import { FiUser, FiPhone, FiMail, FiLock, FiMapPin, FiImage } from 'react-icons/fi';
+import { Context } from '../../context/AuthContext';
 
 import compareObjects from '../../helpers/compareObjects';
+import api from '../../services/api';
 
 import { Container } from './styles';
 import Input from '../../components/Input';
 import Button from '../../components/Button';
 
-const DEFAULT_IMG = "https://i.pinimg.com/originals/51/f6/fb/51f6fb256629fc755b8870c801092942.png";
-
 const Perfil = () => {
   const user = JSON.parse(localStorage.getItem('user'));
-  console.log(user);
+  const history = useHistory();
+  const { handleLogout } = useContext(Context);
 
-  const handleSubmit = useCallback((values, actions) => {
+  const handleSubmit = useCallback(async (values, actions) => {
     const changedValues = compareObjects(values, user);
+    console.log(changedValues)
 
-    if (Object.keys(changedValues).length === 0) alert("É necessário alterar pelo menos um valor.")
-    console.log(changedValues);
-  }, [user]);
+    if (Object.keys(changedValues).length === 0) { alert("É necessário alterar pelo menos um valor."); return }
+
+    try {
+      await api.put(`/${user.cnpj ? 'barbearia' : 'cliente'}/${user.id}`, changedValues);
+      alert("Editado com sucesso. Faça o login novamente!");
+      handleLogout();
+    } catch (error) {
+      console.log(error);
+      alert("Ocorreu um erro ao editar.");
+    }
+
+  }, [handleLogout, user]);
 
   return (
     <Container>
       <section>
-        <img src={DEFAULT_IMG} alt="Foto de Perfil" />
+        <img src={user.imagem} alt="Foto de Perfil" />
         <h1>Meu Perfil</h1>
       </section>
       <Formik onSubmit={handleSubmit} initialValues={{ ...user, senha: '', senhaConfirmacao: '' }}>
@@ -37,6 +49,11 @@ const Perfil = () => {
           <Field name="email">
             {({ field }) => (
               <Input placeholder="E-mail" Icone={FiMail} type="email" required {...field} />
+            )}
+          </Field>
+          <Field name="imagem">
+            {({ field }) => (
+              <Input placeholder="URL da Imagem" Icone={FiImage} {...field} />
             )}
           </Field>
           <Field name="telefone">

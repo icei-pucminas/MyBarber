@@ -84,6 +84,8 @@ export const BemVindo = styled.div`
 
   img {
     width: 75px;
+    height: 75px;
+    border-radius: 50%;
     margin: 10px;
   }
 

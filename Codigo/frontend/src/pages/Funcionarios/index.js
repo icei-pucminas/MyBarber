@@ -6,8 +6,6 @@ import { Container, CardFuncionario } from './styles';
 import Button from '../../components/Button';
 import ModalCadastro from './ModalCadastro';
 
-const DEFAULT_IMG = "https://i.pinimg.com/originals/51/f6/fb/51f6fb256629fc755b8870c801092942.png";
-
 const Funcionarios = () => {
 
   const { id: idBarbearia } = JSON.parse(localStorage.getItem('user'));
@@ -17,13 +15,8 @@ const Funcionarios = () => {
 
   useEffect(() => {
     async function getEmployees() {
-      try {
-        const { data } = await api.get(`/barbearia/funcionarios/${idBarbearia}`);
-        setEmployees(data);
-      } catch (error) {
-        console.log(error);
-        alert("Ocorreu um erro ao buscar os funcionários!");
-      }
+      const { data } = await api.get(`/barbearia/funcionarios/${idBarbearia}`);
+      setEmployees(data);
     }
     getEmployees();
   }, [idBarbearia])
@@ -54,9 +47,9 @@ const Funcionarios = () => {
       <ModalCadastro show={showModal} handleClose={handleClose} funcionario={editingEmployee} idBarbearia={idBarbearia} />
       <Container blur={showModal}>
         <h1>Funcionários</h1>
-        {employees.map((funcionario) => (
+        {employees.length > 0 ? (employees.map((funcionario) => (
           <CardFuncionario key={funcionario.nome}>
-            <img src={DEFAULT_IMG} alt={funcionario.nome} />
+            <img src={funcionario.imagem} alt={funcionario.nome} />
             <main>
               <p>{funcionario.nome}</p>
               <section>
@@ -69,7 +62,7 @@ const Funcionarios = () => {
               </section>
             </main>
           </CardFuncionario>
-        ))}
+        ))) : (<h1>Ainda não possuem funcionários cadastrados!</h1>)}
         <Button onClick={() => setShowModal(true)} disabled={showModal}>Cadastrar novo Funcionário</Button>
       </Container>
     </>
