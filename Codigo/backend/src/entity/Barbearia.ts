@@ -5,7 +5,7 @@ import { Funcionario } from "./Funcionario";
 export class Barbearia {
 
     constructor(nome: string , email: string, senha:string, telefone:string, cep: string, logradouro: string,
-         bairro:string, cidade:string, numero:number, estado:string, cnpj:string, telefoneFixo:string){
+         bairro:string, cidade:string, numero:number, estado:string, cnpj:string, telefoneFixo:string, imagem:string){
 
         this.nome = nome;
         this.email = email;
@@ -19,6 +19,7 @@ export class Barbearia {
         this.estado = estado;
         this.cnpj = cnpj;
         this.telefoneFixo = telefoneFixo;
+        this.imagem = imagem;
 
     }
 
@@ -60,6 +61,9 @@ export class Barbearia {
 
     @Column()
     telefoneFixo : string;
+
+    @Column()
+    imagem : string;
 
     @OneToMany(() => Funcionario, funcionario => funcionario.barbearia)
     funcionarios : Funcionario[];

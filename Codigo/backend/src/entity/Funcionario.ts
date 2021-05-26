@@ -4,12 +4,13 @@ import { Barbearia } from "./Barbearia";
 @Entity()
 export class Funcionario {
 
-    constructor( nome: string , horarioInicial: string, horarioFinal: string, telefone:string, barbearia: Barbearia){
+    constructor( nome: string , horarioInicial: string, horarioFinal: string, telefone:string, barbearia: Barbearia, imagem:string){
         this.nome = nome;
         this.telefone = telefone;
         this.horarioInicial = horarioInicial;
         this.horarioFinal = horarioFinal;
         this.barbearia = barbearia;
+        this.imagem = imagem; 
         
     }
 
@@ -27,6 +28,9 @@ export class Funcionario {
 
     @Column()
     telefone:string;
+    
+    @Column()
+    imagem:string;
 
     @ManyToOne(() => Barbearia)
     barbearia : Barbearia;

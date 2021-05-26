@@ -13,14 +13,14 @@ const clienteCtrl = new ClienteController();
  */
 
 routerBarbearia.post('/', async (req, res) => {
-    const { nome, email, senha, telefone, cep, logradouro, bairro, cidade, numero, estado, cnpj, telefoneFixo } = req.body;
+    const { nome, email, senha, telefone, cep, logradouro, bairro, cidade, numero, estado, cnpj, telefoneFixo, imagem } = req.body;
 
     /* 
     Validação dos campos
     */
     if (nome == null || nome == "" || email == null || email == "" || senha == "" || senha == null || telefone == null || telefone == "" || cep == null || cep == ""
         || logradouro == null || logradouro == "" || bairro == null || bairro == "" || cidade == null || cidade == "" || numero == null || numero == ""
-        || estado == null || estado == "" || cnpj == null || cnpj == "" || telefoneFixo == null || telefoneFixo == "") {
+        || estado == null || estado == "" || cnpj == null || cnpj == "" || telefoneFixo == null || telefoneFixo == ""||imagem== null || imagem=="") {
         res.status(500).json({ mensagem: 'Error, Dados Incompletos' })
     } else {
         const barbeariaValidaEmail = await barbeariaCtrl.findByEmail(email);
@@ -35,7 +35,7 @@ routerBarbearia.post('/', async (req, res) => {
             const senhaHash = await bcrypt.hash(senha, salt);
 
 
-            const barbearia = new Barbearia(nome, email, senhaHash, telefone, cep, logradouro, bairro, cidade, numero, estado, cnpj, telefoneFixo);
+            const barbearia = new Barbearia(nome, email, senhaHash, telefone, cep, logradouro, bairro, cidade, numero, estado, cnpj, telefoneFixo, imagem);
             const barbeariaSalva = await barbeariaCtrl.save(barbearia);
             res.json(barbeariaSalva);
         }
@@ -64,7 +64,7 @@ routerBarbearia.get('/', async (req, res) => {
 });
 
 routerBarbearia.put('/:id', async (req, res) => {
-    const { nome, email, senha, telefone, cep, logradouro, bairro, cidade, numero, estado, telefoneFixo } = req.body;
+    const { nome, email, senha, telefone, cep, logradouro, bairro, cidade, numero, estado, telefoneFixo, imagem } = req.body;
     const { id } = req.params;
     let clienteEmailValida;
     let barbeariaEmailValida;
@@ -91,6 +91,7 @@ routerBarbearia.put('/:id', async (req, res) => {
             (numero != null) ? barbeariaBD.numero = numero : null;
             (estado != null) ? barbeariaBD.estado = estado : null;
             (telefoneFixo != null) ? barbeariaBD.telefoneFixo = telefoneFixo : null;
+            (imagem != null) ? barbeariaBD.imagem = imagem : null;
     
             const clienteSalvo = await clienteCtrl.save(barbeariaBD);
             res.json(clienteSalvo);

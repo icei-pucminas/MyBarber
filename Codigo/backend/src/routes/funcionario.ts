@@ -12,13 +12,14 @@ const funcionarioCtrl = new FuncionarioController();
 
 
 routerFuncionario.post('/', async (req, res) => {
-    const { idBarbearia, nome, horarioInicial, horarioFinal, telefone } = req.body;
+    const { idBarbearia, nome, horarioInicial, horarioFinal, telefone, imagem } = req.body;
     const barbearia = await barbeariaCtrl.findById(idBarbearia);
     if(barbearia){
-        if (nome == null || nome == "" || horarioInicial == null || horarioInicial == "" || horarioFinal == "" || horarioFinal == null || telefone == null || telefone == "") {
+        if (nome == null || nome == "" || horarioInicial == null || horarioInicial == "" || horarioFinal == "" || horarioFinal == null || telefone == null || telefone == ""
+        || imagem == null || imagem == "") {
             res.status(500).json({ mensagem: 'Error, Dados Incompletos' })
         }else{
-            const funcionario = new Funcionario(nome, horarioInicial, horarioFinal, telefone, barbearia);
+            const funcionario = new Funcionario(nome, horarioInicial, horarioFinal, telefone, barbearia, imagem);
             const funcionarioSalvo = await funcionarioCtrl.save(funcionario);
             res.json(funcionarioSalvo);
         }
@@ -29,7 +30,7 @@ routerFuncionario.post('/', async (req, res) => {
 
 });
 routerFuncionario.put('/:id', async (req, res) => {
-    const { nome, horarioInicial, horarioFinal, telefone } = req.body;
+    const { nome, horarioInicial, horarioFinal, telefone, imagem } = req.body;
     const { id } = req.params;
     const funcionarioBD = await funcionarioCtrl.findById(id);
     if(funcionarioBD){
@@ -37,6 +38,7 @@ routerFuncionario.put('/:id', async (req, res) => {
         (horarioInicial != null) ? funcionarioBD.horarioInicial = horarioInicial : null;
         (horarioFinal != null) ? funcionarioBD.horarioFinal = horarioFinal : null;
         (telefone != null) ? funcionarioBD.telefone = telefone : null;
+        (imagem != null) ? funcionarioBD.imagem = imagem : null;
         const funcionarioSalvo = await funcionarioCtrl.save(funcionarioBD);
         res.json(funcionarioSalvo);
     }else{

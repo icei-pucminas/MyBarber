@@ -12,10 +12,11 @@ const barbeariaCtrl = new BarbeariaController();
     Create Cliente
  */
 routerCliente.post('/', async (req, res) => {
-    const { nome, email, senha, telefone } = req.body;
+    const { nome, email, senha, telefone , imagem} = req.body;
 
     /* Realizar validaçoes de os dados chegaram corretamente */
-    if (nome == null || nome == "" || email == null || email == "" || senha == "" || senha == null || telefone == null || telefone == "") {
+    if (nome == null || nome == "" || email == null || email == "" || senha == "" || senha == null || telefone == null || telefone == ""||imagem == null
+    || imagem =="") {
         res.status(500).json({ mensagem: 'Error, Dados Incompletos' })
     } else {
         const clienteEmailValida = await clienteCtrl.findByEmail(email);
@@ -32,7 +33,7 @@ routerCliente.post('/', async (req, res) => {
             /* 
             Salvando o cliente no banco 
             */
-            const cliente = new Cliente(nome, email, senhaHash, telefone);
+            const cliente = new Cliente(nome, email, senhaHash, telefone, imagem);
             const clienteSalvo = await clienteCtrl.save(cliente)
             res.json(clienteSalvo);
         }
@@ -40,7 +41,7 @@ routerCliente.post('/', async (req, res) => {
     }
 });
 routerCliente.put('/:id', async (req, res) => {
-    const { nome, email, senha, telefone } = req.body;
+    const { nome, email, senha, telefone, imagem } = req.body;
     const { id } = req.params;
     let clienteEmailValida;
     let barbeariaEmailValida;
@@ -60,6 +61,7 @@ routerCliente.put('/:id', async (req, res) => {
             (email != null) ? clienteBD.email = email : null;
             (senha != null) ? clienteBD.senha = await bcrypt.hash(senha, salt) : null;
             (telefone != null) ? clienteBD.telefone = telefone : null;
+            (imagem != null) ? clienteBD.imagem = imagem : null;
     
             const clienteSalvo = await clienteCtrl.save(clienteBD);
             res.json(clienteSalvo);
