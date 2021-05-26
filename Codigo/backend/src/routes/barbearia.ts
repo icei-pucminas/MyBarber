@@ -20,7 +20,7 @@ routerBarbearia.post('/', async (req, res) => {
     */
     if (nome == null || nome == "" || email == null || email == "" || senha == "" || senha == null || telefone == null || telefone == "" || cep == null || cep == ""
         || logradouro == null || logradouro == "" || bairro == null || bairro == "" || cidade == null || cidade == "" || numero == null || numero == ""
-        || estado == null || estado == "" || cnpj == null || cnpj == "" || telefoneFixo == null || telefoneFixo == ""||imagem== null || imagem=="") {
+        || estado == null || estado == "" || cnpj == null || cnpj == "" || telefoneFixo == null || telefoneFixo == "") {
         res.status(500).json({ mensagem: 'Error, Dados Incompletos' })
     } else {
         const barbeariaValidaEmail = await barbeariaCtrl.findByEmail(email);
@@ -77,7 +77,7 @@ routerBarbearia.put('/:id', async (req, res) => {
     } else {
 
         const barbeariaBD = await barbeariaCtrl.findById(id);
-        if(barbeariaBD){
+        if (barbeariaBD) {
             const salt = await bcrypt.genSalt(10);
 
             (nome != null) ? barbeariaBD.nome = nome : null;
@@ -92,13 +92,13 @@ routerBarbearia.put('/:id', async (req, res) => {
             (estado != null) ? barbeariaBD.estado = estado : null;
             (telefoneFixo != null) ? barbeariaBD.telefoneFixo = telefoneFixo : null;
             (imagem != null) ? barbeariaBD.imagem = imagem : null;
-    
+
             const clienteSalvo = await clienteCtrl.save(barbeariaBD);
             res.json(clienteSalvo);
-        }else{
-            res.status(404).json({mensagem: 'Barbearia não encontrada'})
+        } else {
+            res.status(404).json({ mensagem: 'Barbearia não encontrada' })
         }
-        
+
     }
 
 
@@ -108,12 +108,12 @@ routerBarbearia.put('/:id', async (req, res) => {
 routerBarbearia.get('/funcionarios/:id', async (req, res) => {
     const { id } = req.params;
     const funcionarios = await barbeariaCtrl.getFuncionariosPorBarbearia(id);
-    if(funcionarios.length===0){
-        res.status(404).json({mensagem: 'Sem Funcionarios'})
-    }else{
+    if (funcionarios.length === 0) {
+        res.status(404).json({ mensagem: 'Sem Funcionarios' })
+    } else {
         res.json(funcionarios)
     }
-    
+
 })
 
 

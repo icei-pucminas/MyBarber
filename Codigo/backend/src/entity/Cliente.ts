@@ -1,12 +1,14 @@
-import {Entity, PrimaryGeneratedColumn, Column} from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column } from "typeorm";
+
+const DEFAULT_IMG = "https://i.pinimg.com/originals/51/f6/fb/51f6fb256629fc755b8870c801092942.png";
 
 @Entity()
 export class Cliente {
 
-    constructor( nome: string , email: string, senha:string, telefone:string, imagem:string){
+    constructor(nome: string, email: string, senha: string, telefone: string, imagem: string) {
         this.nome = nome;
         this.email = email;
-        this.senha = senha; 
+        this.senha = senha;
         this.telefone = telefone;
         this.imagem = imagem;
     }
@@ -24,10 +26,10 @@ export class Cliente {
     senha: string;
 
     @Column()
-    telefone:string;
+    telefone: string;
 
-    @Column()
-    imagem:string;
+    @Column({ default: DEFAULT_IMG, nullable: true })
+    imagem: string;
 
 }
 

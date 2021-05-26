@@ -12,11 +12,10 @@ const barbeariaCtrl = new BarbeariaController();
     Create Cliente
  */
 routerCliente.post('/', async (req, res) => {
-    const { nome, email, senha, telefone , imagem} = req.body;
+    const { nome, email, senha, telefone, imagem } = req.body;
 
     /* Realizar validaçoes de os dados chegaram corretamente */
-    if (nome == null || nome == "" || email == null || email == "" || senha == "" || senha == null || telefone == null || telefone == ""||imagem == null
-    || imagem =="") {
+    if (nome == null || nome == "" || email == null || email == "" || senha == "" || senha == null || telefone == null || telefone == "") {
         res.status(500).json({ mensagem: 'Error, Dados Incompletos' })
     } else {
         const clienteEmailValida = await clienteCtrl.findByEmail(email);
@@ -54,7 +53,7 @@ routerCliente.put('/:id', async (req, res) => {
     } else {
 
         const clienteBD = await clienteCtrl.findById(id);
-        if(clienteBD){
+        if (clienteBD) {
             const salt = await bcrypt.genSalt(10);
 
             (nome != null) ? clienteBD.nome = nome : null;
@@ -62,13 +61,13 @@ routerCliente.put('/:id', async (req, res) => {
             (senha != null) ? clienteBD.senha = await bcrypt.hash(senha, salt) : null;
             (telefone != null) ? clienteBD.telefone = telefone : null;
             (imagem != null) ? clienteBD.imagem = imagem : null;
-    
+
             const clienteSalvo = await clienteCtrl.save(clienteBD);
             res.json(clienteSalvo);
-        }else{
-            res.status(404).json({mensagem: 'Cliente não encontrado'})
+        } else {
+            res.status(404).json({ mensagem: 'Cliente não encontrado' })
         }
-       
+
     }
 
 
