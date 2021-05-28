@@ -49,10 +49,11 @@ const Header = () => {
             </div>
           </BemVindo>
         )}
+        {!user.cnpj &&
         <BarraPesquisa onSubmit={handleSubmit}>
           <input name="cidade" value={city} onChange={(e) => setCity(e.target.value)} placeholder="Busque uma barbearia na sua cidade..." />
           <button type="submit"><FiSearch size={30} /></button>
-        </BarraPesquisa>
+        </BarraPesquisa>}
         <FiMenu size={48} onClick={() => setShowSidebar(!showSidebar)} visibility={authenticated ? 'visible' : 'collapse'} />
       </Container>
       <Sidebar user={user} show={showSidebar && authenticated} setShowSidebar={setShowSidebar} />

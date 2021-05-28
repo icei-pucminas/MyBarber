@@ -46,7 +46,7 @@ const Barbearias = () => {
       <CardContainer>
         {barbeariasPagina.map((barbearia) => (
           <Card key={barbearia.id}>
-            <img src={DEFAULT_IMG} alt="Imagem Barbearia" />
+            <img src={barbearia.imagem} alt="Imagem Barbearia" />
             <div>
               <p>{barbearia.nome}</p>
               <span>{`${barbearia.logradouro}, nº${barbearia.numero},
