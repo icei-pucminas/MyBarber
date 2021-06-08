@@ -1,4 +1,5 @@
-import { Entity, PrimaryGeneratedColumn, Column, Timestamp, ManyToOne } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, Timestamp, ManyToOne, OneToMany } from "typeorm";
+import { Agenda } from "./Agenda";
 import { Barbearia } from "./Barbearia";
 
 const DEFAULT_IMG = "https://image.freepik.com/fotos-gratis/homem-confiante-barbeiro-profissional-com-uma-tesoura-cabeleireiro-elegante-na-barbearia-publicidade-e-barbearia-conceito_167187-244.jpg"
@@ -36,5 +37,8 @@ export class Funcionario {
 
     @ManyToOne(() => Barbearia)
     barbearia: Barbearia;
+
+    @OneToMany(() => Agenda, agenda => agenda.barbeiro)
+    agendas: Agenda[];
 
 }

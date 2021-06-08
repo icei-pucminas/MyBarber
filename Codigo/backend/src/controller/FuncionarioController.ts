@@ -24,6 +24,15 @@ export class FuncionarioController {
       })
        return msg;
     }
+
+    async getAgendasByBarbeiros( id: string) {
+      const date = new Date();
+      const barbeiro = await getManager().findOne(Funcionario, id, {
+          relations: ['agendas'] 
+      });
+      const agendas = barbeiro.agendas.filter( a => a.data >= date);
+      return agendas;
+  }
    
 }
 

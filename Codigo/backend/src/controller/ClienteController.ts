@@ -20,5 +20,14 @@ export class ClienteController {
         return cliente;
 
     }
+
+    async getAgendasByClientes( id: string) {
+        const date = new Date();
+        const cliente = await getManager().findOne(Cliente, id, {
+            relations: ['agendas'] 
+        });
+        const agendas = cliente.agendas.filter( a => a.data >= date);
+        return agendas;
+    }
 }
 

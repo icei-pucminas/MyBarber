@@ -4,10 +4,12 @@ import * as bcrypt from 'bcrypt';
 import { Barbearia } from '../entity/Barbearia';
 import { ClienteController } from '../controller/ClienteController';
 import { Cliente } from '../entity/Cliente';
+import { FuncionarioController } from '../controller/FuncionarioController';
 
 export const routerBarbearia = Router();
 const barbeariaCtrl = new BarbeariaController();
 const clienteCtrl = new ClienteController();
+const funcionarioCtrl = new FuncionarioController();
 /* 
     Create barbearia
  */
@@ -93,8 +95,8 @@ routerBarbearia.put('/:id', async (req, res) => {
             (telefoneFixo != null) ? barbeariaBD.telefoneFixo = telefoneFixo : null;
             (imagem != null) ? barbeariaBD.imagem = imagem : null;
 
-            const clienteSalvo = await clienteCtrl.save(barbeariaBD);
-            res.json(clienteSalvo);
+            const barbeariaSalva = await barbeariaCtrl.save(barbeariaBD);
+            res.json(barbeariaSalva);
         } else {
             res.status(404).json({ mensagem: 'Barbearia não encontrada' })
         }
@@ -112,6 +114,24 @@ routerBarbearia.get('/funcionarios/:id', async (req, res) => {
         res.status(404).json({ mensagem: 'Sem Funcionarios' })
     } else {
         res.json(funcionarios)
+    }
+
+});
+
+routerBarbearia.get('/agendamentos/:id', async (req, res) => {
+    const { id } = req.params;
+    const agendas = [];
+    const funcionarios = await barbeariaCtrl.getFuncionariosPorBarbearia(id);
+    if(funcionarios.length != 0 ){
+        funcionarios.map( async f => {
+            const idBarbeiro = f.id;      
+            agendas.push(await funcionarioCtrl.getAgendasByBarbeiros(idBarbeiro))
+        })
+        if (agendas.length === 0) {
+            res.status(404).json({ mensagem: 'Sem agendamentos' })
+        } else {
+            res.json(agendas)
+        }
     }
 
 })

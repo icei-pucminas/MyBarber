@@ -25,7 +25,7 @@ routerFuncionario.post('/', async (req, res) => {
         }
 
     } else {
-        res.status(404).json({ mensagem: 'Barbearia do Funcionário não encontrada' })
+        res.status(404).json({ mensagem: 'Barbearia do Funcionário não encontrada' });
     }
 
 });

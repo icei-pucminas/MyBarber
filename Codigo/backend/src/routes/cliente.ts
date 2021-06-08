@@ -69,7 +69,15 @@ routerCliente.put('/:id', async (req, res) => {
         }
 
     }
-
-
-
 });
+
+routerCliente.get('/agendamentos/:id', async (req, res) => {
+    const { id } = req.params;
+    const agendas = await clienteCtrl.getAgendasByClientes(id);
+    if (agendas.length === 0) {
+        res.status(404).json({ mensagem: 'Sem agendas' });
+    } else {
+        res.json(agendas);
+    }
+ 
+})
