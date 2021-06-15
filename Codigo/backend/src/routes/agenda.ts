@@ -21,7 +21,7 @@ routerAgenda.post('/', async (req, res) => {
             const temAgenda = await agendaCtrl.findByDataAndHorarioAndBarbeiro(new Date(data), horario, barbeiro);
             if (temAgenda) {
                 res.status(401).json({ mensagem: "Horário Indisponível" });
-            } else {
+        }else{
                 const agenda = new Agenda(data, horario, cliente, barbeiro);
                 const agendaSalva = await agendaCtrl.save(agenda);
                 return res.json(agendaSalva);

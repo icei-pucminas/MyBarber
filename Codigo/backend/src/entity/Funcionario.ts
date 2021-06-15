@@ -35,7 +35,7 @@ export class Funcionario {
     @Column({ default: DEFAULT_IMG, nullable: true })
     imagem: string;
 
-    @ManyToOne(() => Barbearia)
+    @ManyToOne(() => Barbearia, funcionarios => Funcionario, { eager : true })
     barbearia: Barbearia;
 
     @OneToMany(() => Agenda, agenda => agenda.barbeiro)

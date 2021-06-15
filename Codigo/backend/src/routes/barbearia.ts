@@ -118,22 +118,39 @@ routerBarbearia.get('/funcionarios/:id', async (req, res) => {
 
 });
 
+routerBarbearia.get('/:id', async (req, res) => {
+    const { id } = req.params;
+    const barbearia = await barbeariaCtrl.findById(id);
+    if(barbearia){
+        res.json(barbearia);
+    }else{
+        res.status(404).json({ mensagem: 'Barbearia não encontrada' });
+    }
+  
+});
+
+
 routerBarbearia.get('/agendamentos/:id', async (req, res) => {
     const { id } = req.params;
-    const agendas = [];
     const funcionarios = await barbeariaCtrl.getFuncionariosPorBarbearia(id);
+    const agendas = [];
     if(funcionarios.length != 0 ){
         funcionarios.map( async f => {
             const idBarbeiro = f.id;      
-            agendas.push(await funcionarioCtrl.getAgendasByBarbeiros(idBarbeiro))
+            const agendasBusca = await funcionarioCtrl.getAgendasByBarbeiros(idBarbeiro);
+            agendasBusca.map(a => {
+                agendas.push(a);
+            })
+            console.log(agendas);
+            if (agendas.length == 0) {
+                res.status(404).json({ mensagem: 'Sem agendamentos' })
+            } else {
+                res.json(agendas)
+            }
         })
-        if (agendas.length === 0) {
-            res.status(404).json({ mensagem: 'Sem agendamentos' })
-        } else {
-            res.json(agendas)
-        }
+        
     }
 
-})
+});
 
 

@@ -12,7 +12,8 @@ export class AgendaController {
         const temAgenda = await repository.find({
             where: { data: data, horario: horario, barbeiro: barbeiro }
         });
-        if (!temAgenda) {
+        console.log(temAgenda);
+        if (temAgenda.length> 0 ) {
             return true;
         } else return false;
     }
