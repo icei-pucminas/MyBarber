@@ -8,7 +8,6 @@ import { Container, CardContainer } from './styles';
 import Card from './Card';
 import Pagination from './Pagination';
 
-const DEFAULT_IMG = "https://exame.com/wp-content/uploads/2020/05/whatsapp-image-2020-05-12-at-10.47.30.jpg";
 const CARDS_LIMIT = 6;
 
 const Barbearias = () => {
