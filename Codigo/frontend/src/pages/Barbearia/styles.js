@@ -46,10 +46,15 @@ export const Container = styled.div`
       border-radius: 10px;
     }
 
-    > div:last-child {
-      > div {
-        display: flex;
-      }
+    .container-func {
+      flex: 1;
+      max-width: 600px;
+    }
+
+    .container-horarios {
+      display: flex;
+      flex-wrap: wrap;
+      max-width: 100%;
     }
   }
 `;

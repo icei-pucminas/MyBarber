@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 import { FiFrown } from "react-icons/fi";
 
 import api from '../../services/api';
@@ -13,6 +14,7 @@ const CARDS_LIMIT = 6;
 const Barbearias = () => {
 
   const query = useQuery();
+  const history = useHistory();
   const cidade = query.get('cidade');
 
   const [barbearias, setBarbearias] = useState([]);
@@ -36,7 +38,9 @@ const Barbearias = () => {
     setBarbeariasPagina(barbearias.slice(offset, (offset + CARDS_LIMIT)));
   }, [barbearias, offset]);
 
-
+  const handleClick = (idBarbearia) => {
+    history.push(`/barbearia/${idBarbearia}`);
+  }
 
   return (
     <Container>
@@ -44,7 +48,7 @@ const Barbearias = () => {
 
       <CardContainer>
         {barbeariasPagina.map((barbearia) => (
-          <Card key={barbearia.id}>
+          <Card key={barbearia.id} onClick={() => handleClick(barbearia.id)}>
             <img src={barbearia.imagem} alt="Imagem Barbearia" />
             <div>
               <p>{barbearia.nome}</p>

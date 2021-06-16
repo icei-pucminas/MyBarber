@@ -1,12 +1,11 @@
-import React, { useState } from 'react';
-
+import React from 'react';
 import AgendamentosCliente from './AgendamentosCliente';
 import AgendamentosBarbearia from './AgendamentosBarbearia';
 import { Container } from './styles';
 
 const Agendamentos = () => {
-
   const user = JSON.parse(localStorage.getItem('user'));
+  const isClient = !user.cnpj;
 
   return (
     <Container>
@@ -15,10 +14,10 @@ const Agendamentos = () => {
         <h1>Meus Agendamentos</h1>
       </main>
       {
-        !user.cnpj ? (
-          <AgendamentosCliente agendamentos={new Array(2).fill()} />
+        isClient ? (
+          <AgendamentosCliente id={user.id} />
         ) :
-          (<AgendamentosBarbearia />)
+          (<AgendamentosBarbearia id={user.id} />)
       }
     </Container>
   )
