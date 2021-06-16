@@ -78,6 +78,7 @@ routerCliente.get('/agendamentos/:id', async (req, res) => {
         res.status(404).json({ mensagem: 'Sem agendas' });
     } else {
         res.json(agendas);
+        
     }
  
 })

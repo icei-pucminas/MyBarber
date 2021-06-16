@@ -20,9 +20,9 @@ export class Agenda {
     @Column()
     horario: string;
 
-    @ManyToOne(() => Cliente)
+    @ManyToOne(() => Cliente, agendas => Agenda,  { eager : true })
     cliente: Cliente;
 
-    @ManyToOne(() => Funcionario)
+    @ManyToOne(() => Funcionario, agendas => Agenda, { eager : true })
     barbeiro: Funcionario;
 }

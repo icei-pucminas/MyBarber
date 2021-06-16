@@ -1,6 +1,7 @@
 import { getManager } from "typeorm";
 import { Cliente } from "../entity/Cliente";
 import { getRepository } from 'typeorm';
+import { Agenda } from "../entity/Agenda";
 
 
 export class ClienteController {
@@ -23,11 +24,12 @@ export class ClienteController {
 
     async getAgendasByClientes(id: string) {
         const date = new Date();
-        const cliente = await getManager().findOne(Cliente, id, {
+        const cliente = await getManager().findOne(Cliente, {
+            where: {id : id},
             relations: ['agendas']
         });
-        const agendas = cliente.agendas.filter(a => a.data >= date);
-        return agendas;
+        const agendasDataCerta = cliente.agendas.filter(a => a.data >= date);
+        return agendasDataCerta;
     }
 }
 
