@@ -1,6 +1,7 @@
 import { getManager, getRepository } from "typeorm";
 import { Agenda } from "../entity/Agenda";
 import { Funcionario } from "../entity/Funcionario";
+import { objectConstants } from "../constants/Errors";
 
 export class AgendaController {
     async save(agenda: Agenda) {
@@ -17,4 +18,13 @@ export class AgendaController {
             return true;
         } else return false;
     }
+    async deleteById( id : string ){
+      
+        const msg = await getManager().delete(Agenda, id).then(() => {
+          return objectConstants.MSG_OK_AGENDA;
+        }).catch(() => {
+          return objectConstants.MSG_ERROR;
+        })
+         return msg;
+      }
 }

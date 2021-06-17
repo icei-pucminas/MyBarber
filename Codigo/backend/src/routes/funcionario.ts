@@ -1,4 +1,4 @@
-import { Router } from 'express';
+import { json, Router } from 'express';
 import { objectConstants } from '../constants/Errors';
 import { BarbeariaController } from '../controller/BaberariaController';
 import { FuncionarioController } from '../controller/FuncionarioController';
@@ -50,4 +50,16 @@ routerFuncionario.delete('/delete/:id', async (req, res) => {
     const { id } = req.params;
     const msg = await funcionarioCtrl.deleteById(id);
     res.json({ mensagem: msg });
+});
+routerFuncionario.post('/agendamentos', async (req, res) => {
+    const { id, data } = req.body;
+    const dateTimestamp = Date.parse(data);
+    const agendaAll = await funcionarioCtrl.getAgendasByBarbeiros(id);
+    if(agendaAll){
+        const agendasByData = agendaAll.filter(a => a.data.getTime() == dateTimestamp);
+        return res.json(agendasByData);
+    }else{
+        res.status(404).json({ mensagem : 'Sem agendamentos'});
+    }
+
 });
