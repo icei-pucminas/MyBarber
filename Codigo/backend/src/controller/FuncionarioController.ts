@@ -14,11 +14,12 @@ export class FuncionarioController {
         const funcionario = await getManager().findOne(Funcionario, id);
         return funcionario;
     }
+    
 
     async deleteById( id : string ){
       
       const msg = await getManager().delete(Funcionario, id).then(() => {
-        return objectConstants.MSG_OK;
+        return objectConstants.MSG_OK_FUNCIONARIO;
       }).catch(() => {
         return objectConstants.MSG_ERROR;
       })
