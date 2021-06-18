@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import api from '../../../services/api';
 import { Card } from './styles';
 
-const AgendamentosCliente = ({ id }) => {
+const AgendamentosCliente = ({ id, handleCancel }) => {
   const [agendamentos, setAgendamentos] = useState([]);
 
   useEffect(() => {
@@ -16,21 +16,6 @@ const AgendamentosCliente = ({ id }) => {
     }
     getBookings();
   }, [id]);
-
-  const handleCancel = async (id) => {
-    // eslint-disable-next-line no-restricted-globals
-    const cancel = confirm('Você realmente deseja cancelar o agendamento?');
-    if (!cancel) return;
-    try {
-      await api.delete(`/agenda/cancelar/${id}`);
-      const novosAgendamentos = agendamentos.filter((agendamento) => agendamento.id !== id);
-      alert("Agendamento cancelado com sucesso!");
-      setAgendamentos(novosAgendamentos);
-    } catch (error) {
-      alert("Ocorreu um erro ao cancelar!");
-      console.log(error);
-    }
-  }
 
   if (!agendamentos) {
     return (

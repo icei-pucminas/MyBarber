@@ -66,6 +66,9 @@ export const TabelaAgendamentos = styled.div`
     td {
       text-align: center;
       color: white;
+      svg:hover {
+        cursor: pointer;
+      }
     }
   }
 `;
