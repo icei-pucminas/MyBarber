@@ -36,7 +36,6 @@ export const Container = styled.div`
 
   section {
     display: flex;
-    flex: 1;
     gap: 20px;
     background-color: #2F2F2F;    
     padding: 20px;
@@ -47,6 +46,9 @@ export const Container = styled.div`
     }
 
     .container-func {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
       flex: 1;
       max-width: 600px;
     }
@@ -55,11 +57,23 @@ export const Container = styled.div`
       display: flex;
       flex-wrap: wrap;
       max-width: 100%;
+
+      .horario-selecionado {
+        background: #FF9000;
+      }
+    }
+    
+    .btn-agendar:disabled {
+      &:hover {
+        color: #312E38;
+      }
+      background: #232129;
+      cursor: auto;
     }
   }
 `;
 
-export const Horario = styled.button`
+export const Horario = styled.div`
     width: 100px;
     height: 60px;
     margin: 20px 20px 0px 0px;
@@ -68,6 +82,7 @@ export const Horario = styled.button`
 
     display: grid;
     place-content: center;
+    cursor: pointer;
 
     color: white;
     font-weight: bold;
@@ -76,5 +91,8 @@ export const Horario = styled.button`
     
     &:hover {
       transform: scale(1.05);
+    }
+    input {
+      width: 100%;
     }
 `;
