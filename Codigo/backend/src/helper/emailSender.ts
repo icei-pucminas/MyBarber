@@ -5,11 +5,11 @@ import { Barbearia } from '../entity/Barbearia';
 import { Cliente } from '../entity/Cliente';
 
 const transporter = nodemailer.createTransport({
-    host: "smtp.gmail.com",
-    port: 587,
+    host: smtp.host,
+    port: smtp.port,
     auth: {
-      user: "mybarbernoreply@gmail.com",
-      pass: "mybarber123"
+      user: smtp.user,
+      pass: smtp.pass
     }
 });
 

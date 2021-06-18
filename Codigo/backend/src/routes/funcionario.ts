@@ -48,8 +48,14 @@ routerFuncionario.put('/:id', async (req, res) => {
 });
 routerFuncionario.delete('/delete/:id', async (req, res) => {
     const { id } = req.params;
-    const msg = await funcionarioCtrl.deleteById(id);
-    res.json({ mensagem: msg });
+    const agendas = await funcionarioCtrl.getAgendasByBarbeiros(id);
+    if(agendas.length > 0){
+        res.status(500).json({mensagem: "Falha ao Deletar Barbeiro, agendamentos relacionados a ele."})
+    }else{
+        const msg = await funcionarioCtrl.deleteById(id);
+        res.json({ mensagem: msg });
+    }
+    
 });
 routerFuncionario.post('/agendamentos', async (req, res) => {
     const { id, data } = req.body;
