@@ -41,7 +41,7 @@ const AgendamentosBarbearia = ({ id: idBarbearia, handleCancel }) => {
                     <td>{agendamento.cliente.nome}</td>
                     <td>{agendamento.horario}</td>
                     <td>{agendamento.cliente.telefone}</td>
-                    <td onClick={() => handleCancel(agendamento.id)}><FiX size={24} color={'red'}></FiX></td>
+                    <td onClick={() => handleCancel(agendamento.id, agendamentos, setAgendamentos)}><FiX size={24} color={'red'}></FiX></td>
                   </tr>
                 ))
               }
