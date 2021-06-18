@@ -27,4 +27,8 @@ export class AgendaController {
         })
          return msg;
       }
+      async findById( id : string ){
+        const agenda = await getManager().findOne(Agenda, id);
+        return agenda;
+      }
 }

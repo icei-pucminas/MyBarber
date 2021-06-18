@@ -1,24 +1,49 @@
 import * as nodemailer from 'nodemailer';
 import {smtp} from '../config/smtp';
+import { Agenda } from '../entity/Agenda';
+import { Barbearia } from '../entity/Barbearia';
+import { Cliente } from '../entity/Cliente';
 
 const transporter = nodemailer.createTransport({
-    host: smtp.host,
-    port: smtp.port,
+    host: "smtp.gmail.com",
+    port: 587,
     auth: {
-        user: smtp.user,
-        pass: smtp.pass,
-    },   
-    secure: false,
-    tls: {
-        rejectUnauthorized: false
+      user: "mybarbernoreply@gmail.com",
+      pass: "mybarber123"
     }
 });
 
-export const emailSender = async (cliente, agendamento, barbearia) => {
+export const emailSender = async (cliente, agenda, barbearia) => {
     const mailSent = await transporter.sendMail({
-        text: `Agendamento realizado no nome de ${agendamento.cliente.nome} as ${agendamento.horario} no dia ${agendamento.data}, com o funcionário ${agendamento.barbeiro.nome}`,
-        subject: "Agendamento",
-        from: `MyBarber <${smtp.user}>`,
-        to: [`joaovenus@gmail.com`],
+        from: `MyBarber <mybarbernoreply@gmail.com>`,        
+        to: [`${cliente.email},${barbearia.email}`],
+        subject: "Agendamento",        
+        html: `<h2>Agendamento Confirmado</h2><br>
+        <p>Agendamento confirmado as ${agenda.horario} de ${new Date(agenda.data).toLocaleDateString()}.</p><br>
+        <p>Cliente: ${cliente.nome}</p><br>
+        <p>Barbeiro: ${agenda.barbeiro.nome}</p><br> 
+        <p>Barbearia: ${barbearia.nome}</p><br>`,
+    }).then (message => {
+        console.log(message);
+    }).catch(error => {
+        console.log(error);
     })
 }
+
+export const emailCancelaSender = async (agenda) => {
+    const mailSent = await transporter.sendMail({
+        from: `MyBarber <mybarbernoreply@gmail.com>`,        
+        to: [`${agenda.cliente.email},${agenda.barbeiro.barbearia.email}`],
+        subject: "Agendamento",        
+        html: `<h2>Agendamento Cancelado</h2><br>
+        <p>Agendamento cancelado : ${agenda.horario} de ${new Date(agenda.data).toLocaleDateString()}.</p><br>
+        <p>Cliente: ${agenda.cliente.nome}</p><br>
+        <p>Barbeiro: ${agenda.barbeiro.nome}</p><br> 
+        <p>Barbearia: ${agenda.barbeiro.barbearia.nome}</p><br>`,
+    }).then (message => {
+        console.log(message);
+    }).catch(error => {
+        console.log(error);
+    })
+}
+

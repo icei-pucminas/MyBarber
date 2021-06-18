@@ -4,7 +4,7 @@ import { BarbeariaController } from "../controller/BaberariaController";
 import { ClienteController } from "../controller/ClienteController";
 import { FuncionarioController } from "../controller/FuncionarioController";
 import { Agenda } from "../entity/Agenda";
-import { emailSender } from "../helper/emailSender";
+import { emailCancelaSender, emailSender } from "../helper/emailSender";
 
 
 export const routerAgenda = Router();
@@ -29,7 +29,7 @@ routerAgenda.post('/', async (req, res) => {
         }else{
                 const agenda = new Agenda(data, horario, cliente, barbeiro);
                 const agendaSalva = await agendaCtrl.save(agenda);
-                //await emailSender(cliente, agendaSalva, barbearia);
+                emailSender(cliente, agendaSalva, barbearia);
                 return res.json(agendaSalva);
                 
             }
@@ -43,6 +43,8 @@ routerAgenda.post('/', async (req, res) => {
 });
 routerAgenda.delete('/cancelar/:id', async (req, res) => {
     const { id } = req.params;
+    const agenda = await agendaCtrl.findById(id);
     const msg = await agendaCtrl.deleteById(id);
+    emailCancelaSender(agenda);
     res.json({ mensagem: msg });
 });
