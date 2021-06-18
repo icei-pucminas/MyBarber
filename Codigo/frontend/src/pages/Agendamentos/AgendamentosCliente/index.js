@@ -38,7 +38,7 @@ const AgendamentosCliente = ({ id, handleCancel }) => {
         <div>
           <p>Dia: {new Date(agendamento.data).toLocaleDateString()}</p>
           <p>Horário: {agendamento.horario}</p>
-          <button onClick={() => handleCancel(agendamento.id)}>Cancelar Agendamento?</button>
+          <button onClick={() => handleCancel(agendamento.id, agendamentos, setAgendamentos)}>Cancelar Agendamento?</button>
         </div>
       </Card>
     ))
