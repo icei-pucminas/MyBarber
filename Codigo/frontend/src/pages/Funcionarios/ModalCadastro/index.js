@@ -3,7 +3,6 @@ import { useHistory } from 'react-router'
 import { Field, Form, Formik } from 'formik';
 import { FiLock, FiUser, FiWatch, FiX, FiImage } from 'react-icons/fi';
 
-import validateURL from '../../../helpers/validateURL';
 import compareObjects from '../../../helpers/compareObjects';
 import api from '../../../services/api';
 

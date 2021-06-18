@@ -9,6 +9,7 @@ import Login from '../pages/Login';
 import Cadastro from '../pages/Cadastro';
 import CadastroBarbearia from '../pages/Cadastro/Barbearia';
 import Barbearias from '../pages/Barbearias';
+import Barbearia from '../pages/Barbearia';
 import Perfil from '../pages/Perfil';
 import Funcionarios from '../pages/Funcionarios';
 import Agendamentos from '../pages/Agendamentos';
@@ -26,6 +27,7 @@ const Routes = () => (
       <CustomRoute exact path="/perfil/" component={Perfil} isPrivate />
       <CustomRoute exact path="/funcionarios/" component={Funcionarios} isPrivate disallowClient />
       <CustomRoute exact path="/agendamentos" component={Agendamentos} isPrivate />
+      <CustomRoute exact path="/barbearia/:id" component={Barbearia} isPrivate disallowBarber />
     </Switch>
   </AuthProvider>
 );

@@ -1,6 +1,5 @@
 import React, { useCallback, useContext } from 'react';
 import { Field, Form, Formik } from 'formik';
-import { useHistory } from 'react-router'
 import { FiUser, FiPhone, FiMail, FiLock, FiMapPin, FiImage } from 'react-icons/fi';
 import { Context } from '../../context/AuthContext';
 
@@ -13,7 +12,6 @@ import Button from '../../components/Button';
 
 const Perfil = () => {
   const user = JSON.parse(localStorage.getItem('user'));
-  const history = useHistory();
   const { handleLogout } = useContext(Context);
 
   const handleSubmit = useCallback(async (values, actions) => {

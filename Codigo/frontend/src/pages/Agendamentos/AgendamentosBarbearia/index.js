@@ -1,25 +1,28 @@
-import React, { useState } from 'react';
-import { FiUser } from 'react-icons/fi';
+import React, { useEffect, useState } from 'react';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 
-import { Container, SeletorFuncionario, TabelaAgendamentos } from './styles';
+import { getAgendamentos } from '../../../services/api';
+import SeletorFuncionarios from '../../../components/SeletorFuncionarios';
+import { Container, TabelaAgendamentos } from './styles';
 
-const AgendamentosBarbearia = () => {
+const AgendamentosBarbearia = ({ id: idBarbearia }) => {
   const [dateValue, setDateValue] = useState(new Date());
-  const [funcionario, setFuncionario] = useState("");
+  const [funcionario, setFuncionario] = useState({});
+  const [agendamentos, setAgendamentos] = useState([]);
+
+  useEffect(() => {
+    (async () => {
+      const agendas = await getAgendamentos(funcionario.id, dateValue);
+      setAgendamentos(agendas);
+    })();
+  }, [funcionario, dateValue])
 
   return (
     <Container>
       <Calendar value={dateValue} onChange={setDateValue} />
       <main>
-        <SeletorFuncionario>
-          <FiUser size={32} />
-          <select name="funcionarios" value={funcionario} onChange={(e) => setFuncionario(e.target.value)}>
-            <option value="Fulano da Silva">Fulano da Silva</option>
-            <option value="Beltrano Augusto">Beltrano Augusto</option>
-          </select>
-        </SeletorFuncionario>
+        <SeletorFuncionarios idBarbearia={idBarbearia} setFuncionario={setFuncionario} />
         <TabelaAgendamentos>
           <table>
             <thead>
@@ -30,16 +33,15 @@ const AgendamentosBarbearia = () => {
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td>James Bond</td>
-                <td>15:00</td>
-                <td>(31) 99837-0921</td>
-              </tr>
-              <tr>
-                <td>Sylvester Stallone</td>
-                <td>12:00</td>
-                <td>(31) 99837-0921</td>
-              </tr>
+              {
+                agendamentos.map((agendamento) => (
+                  <tr key={agendamento.id}>
+                    <td>{agendamento.cliente.nome}</td>
+                    <td>{agendamento.horario}</td>
+                    <td>{agendamento.cliente.telefone}</td>
+                  </tr>
+                ))
+              }
             </tbody>
           </table>
         </TabelaAgendamentos>

@@ -4,8 +4,6 @@ import { Link } from 'react-router-dom';
 
 import { Container } from './styles';
 
-const DEFAULT_IMG = "https://i.pinimg.com/originals/51/f6/fb/51f6fb256629fc755b8870c801092942.png";
-
 const Sidebar = ({ user, show, setShowSidebar }) => {
 
   const isBarber = user.cnpj;

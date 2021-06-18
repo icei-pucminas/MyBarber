@@ -1,24 +1,59 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import api from '../../../services/api';
 import { Card } from './styles';
 
-const DEFAULT_IMG = "https://exame.com/wp-content/uploads/2020/05/whatsapp-image-2020-05-12-at-10.47.30.jpg";
+const AgendamentosCliente = ({ id }) => {
+  const [agendamentos, setAgendamentos] = useState([]);
 
-const AgendamentosCliente = ({ agendamentos }) => {
+  useEffect(() => {
+    async function getBookings() {
+      try {
+        const { data } = await api.get(`/cliente/agendamentos/${id}`);
+        setAgendamentos(data);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    getBookings();
+  }, [id]);
 
-  console.log(agendamentos);
+  const handleCancel = async (id) => {
+    // eslint-disable-next-line no-restricted-globals
+    const cancel = confirm('Você realmente deseja cancelar o agendamento?');
+    if (!cancel) return;
+    try {
+      await api.delete(`/agenda/cancelar/${id}`);
+      const novosAgendamentos = agendamentos.filter((agendamento) => agendamento.id !== id);
+      alert("Agendamento cancelado com sucesso!");
+      setAgendamentos(novosAgendamentos);
+    } catch (error) {
+      alert("Ocorreu um erro ao cancelar!");
+      console.log(error);
+    }
+  }
+
+  if (!agendamentos) {
+    return (
+      <div style={{ color: 'white' }}>
+        Não foram encontrados agendamentos!
+      </div>
+    )
+  }
+
 
   return (
-    agendamentos.map((agendamento) => (
-      <Card>
-        <img src={DEFAULT_IMG} alt="Barbearia Interior" />
+    agendamentos.sort((a, b) => new Date(a.data) - new Date(b.data)).map((agendamento) => (
+      <Card key={agendamento.id}>
+        <img src={agendamento.barbeiro.barbearia.imagem} alt="Barbearia Interior" />
         <div>
-          <p>NOME BARBEARIA</p>
-          <span>Rua x, nº 11, Gonçalves, São Bento - SP</span>
+          <p>{agendamento.barbeiro.barbearia.nome}</p>
+          <span>{`${agendamento.barbeiro.barbearia.logradouro}, nº${agendamento.barbeiro.barbearia.numero},
+                 ${agendamento.barbeiro.barbearia.bairro}, ${agendamento.barbeiro.barbearia.cidade} - ${agendamento.barbeiro.barbearia.estado}`}</span>
         </div>
         <div>
-          <p>Dia: 19/07/2021</p>
-          <p>Horário: 13:00</p>
-          <button>Cancelar Agendamento?</button>
+          <p>Dia: {new Date(agendamento.data).toLocaleDateString()}</p>
+          <p>Horário: {agendamento.horario}</p>
+          <button onClick={() => handleCancel(agendamento.id)}>Cancelar Agendamento?</button>
         </div>
       </Card>
     ))
