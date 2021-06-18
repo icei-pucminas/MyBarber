@@ -47,3 +47,19 @@ export const emailCancelaSender = async (agenda) => {
     })
 }
 
+export const emailContaCreate = async (user) => {
+    const mailSent = await transporter.sendMail({
+        from: `MyBarber <mybarbernoreply@gmail.com>`,        
+        to: `${user.email}`,
+        subject: "Conta MyBarber",        
+        html: `<h2>Conta criada com sucesso</h2><br>
+        <p>Email de Usuário : ${user.email}</p><br>
+        <p>Nome: ${user.nome}</p><br>
+        `,
+    }).then (message => {
+        console.log(message);
+    }).catch(error => {
+        console.log(error);
+    })
+}
+

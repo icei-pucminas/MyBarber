@@ -3,6 +3,7 @@ import { ClienteController } from '../controller/ClienteController';
 import { Cliente } from '../entity/Cliente';
 import * as bcrypt from 'bcrypt';
 import { BarbeariaController } from '../controller/BaberariaController';
+import { emailContaCreate } from '../helper/emailSender';
 
 
 export const routerCliente = Router();
@@ -34,6 +35,7 @@ routerCliente.post('/', async (req, res) => {
             */
             const cliente = new Cliente(nome, email, senhaHash, telefone, imagem);
             const clienteSalvo = await clienteCtrl.save(cliente)
+            emailContaCreate(cliente);
             res.json(clienteSalvo);
         }
 

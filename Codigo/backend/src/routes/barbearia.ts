@@ -5,6 +5,7 @@ import { Barbearia } from '../entity/Barbearia';
 import { ClienteController } from '../controller/ClienteController';
 import { Cliente } from '../entity/Cliente';
 import { FuncionarioController } from '../controller/FuncionarioController';
+import { emailContaCreate } from '../helper/emailSender';
 
 export const routerBarbearia = Router();
 const barbeariaCtrl = new BarbeariaController();
@@ -39,6 +40,7 @@ routerBarbearia.post('/', async (req, res) => {
 
             const barbearia = new Barbearia(nome, email, senhaHash, telefone, cep, logradouro, bairro, cidade, numero, estado, cnpj, telefoneFixo, imagem);
             const barbeariaSalva = await barbeariaCtrl.save(barbearia);
+            emailContaCreate(barbearia);
             res.json(barbeariaSalva);
         }
     }
